@@ -30,17 +30,43 @@
 
  
 ## About The Project
-
+Ecobot is a telegram bot that provides information about the separate collection calendar in Asti. It reads the ```data.json``` file which contains data of the calendar. This is an example:
+```json
+{
+  "municipalityName": "Asti",
+  "areas":[
+      {
+        "name": "Zona 1",
+        "streets": "Via Roma, Corso Torino ecc",
+        "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+        "weekCalendar":[
+            {
+              "day": 1,
+              "type": "ORGANICO"
+            },
+            {
+              "day": 2,
+              "type": "CARTA"
+            }
+          ]
+      }
+    ]
+}
+```
 
 ### Built With
-
-
+Ecobot is built with:
+* Telegram Api
+* Java
+* Maven
 
 ## Getting Started
 
 Follow the instructions for setting up the project locally.
 
 ### Prerequisites
+* Java
+* Maven
 
 ### Installation
 
@@ -48,19 +74,16 @@ Follow the instructions for setting up the project locally.
 ```sh
 git clone https://github.com/veronicadev/ecobot.git
 ```
-3. Install NPM packages
+3. Install Maven packages
 ```sh
-npm install
+mvn install
 ```
 4. Create the ```.env ``` file in the main folder of the project and enter your API
 ```.env
+BOT_TOKEN=<YOUR_BOT_TOKEN>
+
 ```
-5. Run the following command to start the server
-```sh
-```
-5. Run the following command to start vue
-```sh
-```
+
 
 ## Features
 
