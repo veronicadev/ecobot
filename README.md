@@ -1,4 +1,5 @@
 <p align="center">
+<img src="https://raw.githubusercontent.com/veronicadev/ecobot/master/ecobot.png" alt="image">
 </p>
 <h2 align="center"> Ecobot</h2>
   <p align="center">
