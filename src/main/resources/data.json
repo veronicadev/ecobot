@@ -1,0 +1,20 @@
+{
+  "municipalityName": "Asti",
+  "areas":[
+    {
+      "name": "Zona 1",
+      "streets": "Via Roma, Corso Torino ecc",
+      "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+      "weekCalendar":[
+        {
+          "day": 1,
+          "type": "ORGANICO"
+        },
+        {
+          "day": 2,
+          "type": "CARTA"
+        }
+      ]
+    }
+  ]
+}

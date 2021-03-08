@@ -1,66 +1,82 @@
 package veronicadev.ecobot;
 
-import org.jsoup.*;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.UpdatesListener;
+import com.pengrad.telegrambot.request.BaseRequest;
+import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.response.BaseResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class EcoBot {
-    private static String URL;
     private static String BOT_TOKEN;
     private static ArrayList<Area> areas;
+    private static String municipalityName;
+    private static TelegramBot bot;
     public static void main(String[] args) throws IOException {
-        URL = getVar("URL");
         BOT_TOKEN = getVar("BOT_TOKEN");
+        bot = new TelegramBot(BOT_TOKEN);
+
+
+        /*GET AREAS DATA*/
         areas = getAreas();
+
+
     }
 
     private static String getVar(String var){
         return System.getenv(var);
     }
 
-    private static ArrayList<Area> getAreas() throws IOException {
-        Document doc = Jsoup.connect(URL).get();
-        Elements areasToElaborate = doc.select(".fusion-one-full:not(:nth-last-of-type(2))");
-        for (Element a : areasToElaborate) {
-            Elements titleNodes = a.select("p:first-of-type strong");
-            if(titleNodes!=null){
-                Area area = new Area();
-                area.setName(titleNodes.text());
-                area.setStreets(getAreaStreets(a));
-                area.setAddressedTo(getAreaAddressedTo(a));
-                area.setWeekCalendar(getWeekCalendar(a));
-                System.out.println(area.getName());
-                System.out.println(area.getStreets());
-                System.out.println(area.getAddressedTo());
-            }
+    private static ArrayList<Area> getAreas() {
+        try{
+            JSONObject jsonFile = FileManager.readJSON("data.json");
+            municipalityName = jsonFile.getString("municipalityName");
+            ArrayList<Area> areas = getAreas(jsonFile);
+            System.out.println(areas);
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return new ArrayList<Area>();
     }
 
-    private static String getAreaStreets(Element element){
-        String streets = "";
-        Elements streetsNodes = element.select("p:nth-of-type(2)");
-        if(streetsNodes!=null){
-            streets = streetsNodes.text();
+    private static ArrayList<Area> getAreas(JSONObject jsonFile){
+        ArrayList<Area> areas = new ArrayList<>();
+        if(jsonFile.has("areas")){
+            JSONArray areasJson = jsonFile.getJSONArray("areas");
+            for (Object a: areasJson) {
+                Area area = new Area();
+                JSONObject areaJson = (JSONObject) a;
+                area.setName(areaJson.getString("name"));
+                area.setStreets(areaJson.getString("streets"));
+                area.setAddressedTo(areaJson.getString("addressedTo"));
+                area.setWeekCalendar(getWeekCalendar(areaJson));
+                areas.add(area);
+            }
         }
-        return streets;
+        return areas;
     }
 
-    private static String getAreaAddressedTo(Element element){
+    private static String getAreaAddressedTo(){
         String addressedTo = "";
-        Elements streetsNodes = element.select("p:nth-of-type(3) strong");
-        if(streetsNodes!=null){
-            addressedTo = streetsNodes.text();
-        }
         return addressedTo;
     }
 
-    private static ArrayList<TrashContainer> getWeekCalendar(Element element){
+    private static ArrayList<TrashContainer> getWeekCalendar(JSONObject areaJson){
         ArrayList<TrashContainer> week = new ArrayList<>();
+        if(areaJson.has("weekCalendar")){
+            JSONArray weekCalendarJson = areaJson.getJSONArray("weekCalendar");
+            for (Object w: weekCalendarJson) {
+                JSONObject weekJson = (JSONObject) w;
+                TrashContainer trashContainer = new TrashContainer();
+                trashContainer.setDay(weekJson.getString("type"));
+                trashContainer.setType(TrashType.valueOf(weekJson.getString("type")));
+                week.add(trashContainer);
+            }
+        }
         return week;
     }
 }
