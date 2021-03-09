@@ -1,15 +1,22 @@
 package veronicadev.ecobot;
 
+import com.pengrad.telegrambot.Callback;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
+import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.BaseRequest;
+import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.request.SetWebhook;
 import com.pengrad.telegrambot.response.BaseResponse;
+import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EcoBot {
     private static String BOT_TOKEN;
@@ -17,13 +24,13 @@ public class EcoBot {
     private static String municipalityName;
     private static TelegramBot bot;
     public static void main(String[] args) throws IOException {
-        BOT_TOKEN = getVar("BOT_TOKEN");
-        bot = new TelegramBot(BOT_TOKEN);
-
 
         /*GET AREAS DATA*/
         areas = getAreas();
 
+        BOT_TOKEN = getVar("BOT_TOKEN");
+        bot = new TelegramBot(BOT_TOKEN);
+        System.out.println("** EcoBot init **");
 
     }
 
