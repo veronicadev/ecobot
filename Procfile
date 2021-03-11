@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* veronicadev.ecobot.Main
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* veronicadev.ecobot.Application

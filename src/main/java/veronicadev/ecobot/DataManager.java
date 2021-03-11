@@ -2,45 +2,49 @@ package veronicadev.ecobot;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Main {
+public class DataManager {
+    private static DataManager dataManager = null;
     private static String municipalityName;
-    public static void main(String[] args) throws TelegramApiException {
+    private static List<Area> areas = new ArrayList<>();
+    private DataManager(){}
+    public static DataManager getInstance(){
+        if(dataManager ==null){
+            dataManager = new DataManager();
+        }
+        return dataManager;
+    }
+    @SuppressWarnings("unchecked")
+    public JSONObject readJSON(String path){
+        System.out.println("** Retrieving data init **");
+        JSONObject obj = null;
+        InputStream input = DataManager.class.getClassLoader().getResourceAsStream(path);
 
-        TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
-        try {
-            System.out.println("** EcoBot init **");
-            api.registerBot(new EcoBot());
-        } catch (TelegramApiRequestException e) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
+            //Read JSON file
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            obj = new JSONObject(sb.toString());
+            areas = getAreasFromJSON(obj);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (TelegramApiException e) {
+        }  catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.println("** Retrieving data end **");
+        return obj;
     }
 
-
-    private static ArrayList<Area> getAreas() {
-        try{
-            JSONObject jsonFile = FileManager.readJSON("data.json");
-            municipalityName = jsonFile.getString("municipalityName");
-            ArrayList<Area> areas = getAreas(jsonFile);
-            System.out.println(areas);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return new ArrayList<Area>();
-    }
-
-    private static ArrayList<Area> getAreas(JSONObject jsonFile){
+    public static ArrayList<Area> getAreasFromJSON(JSONObject jsonFile){
         ArrayList<Area> areas = new ArrayList<>();
+        municipalityName = jsonFile.getString("municipalityName");
         if(jsonFile.has("areas")){
             JSONArray areasJson = jsonFile.getJSONArray("areas");
             for (Object a: areasJson) {
@@ -56,11 +60,6 @@ public class Main {
         return areas;
     }
 
-    private static String getAreaAddressedTo(){
-        String addressedTo = "";
-        return addressedTo;
-    }
-
     private static ArrayList<TrashContainer> getWeekCalendar(JSONObject areaJson){
         ArrayList<TrashContainer> week = new ArrayList<>();
         if(areaJson.has("weekCalendar")){
@@ -74,5 +73,13 @@ public class Main {
             }
         }
         return week;
+    }
+
+    public static String getMunicipalityName() {
+        return municipalityName;
+    }
+
+    public static List<Area> getAreas() {
+        return areas;
     }
 }
