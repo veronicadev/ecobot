@@ -9,7 +9,6 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class Application {
     private static String municipalityName;
     public static void main(String[] args) throws TelegramApiException {
-
         TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
         try {
             System.out.println("** EcoBot init **");

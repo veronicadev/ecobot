@@ -42,11 +42,11 @@ Ecobot is a telegram bot that provides information about the separate collection
         "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
         "weekCalendar":[
             {
-              "day": 1,
+              "day": "1",
               "type": "ORGANICO"
             },
             {
-              "day": 2,
+              "day": "2",
               "type": "CARTA"
             }
           ]
@@ -79,12 +79,16 @@ git clone https://github.com/veronicadev/ecobot.git
 ```sh
 mvn install
 ```
-4. Create the ```.env ``` file in the main folder of the project and enter your API
-```.env
-BOT_TOKEN=<YOUR_BOT_TOKEN>
+4. Run tests
+```mvn
+test -DBOT_TOKEN=someValue -f pom.xml
 
 ```
+5. Procfile
+```sh
+web: java -DBOT_TOKEN=$BOT_TOKEN $JAVA_OPTS -cp target/classes:target/dependency/* veronicadev.ecobot.Application
 
+```
 
 ## Features
 

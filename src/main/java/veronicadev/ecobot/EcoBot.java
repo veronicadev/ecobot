@@ -31,17 +31,18 @@ public class EcoBot extends TelegramLongPollingBot {
             //check if the message contains a text
             if(message.hasText()){
                 String input = message.getText();
-                if(input.equals("/start")){
-                    SendMessage sendMessagerequest = new SendMessage();
-                    sendMessagerequest.setChatId(message.getChatId().toString());
-                    sendMessagerequest.setText("Ciao, sono EcoBot \uD83D\uDE9B ! Usa i comandi per chiedermi informazioni riguardo il calendario della raccolta differenziata della tua città! ♻️Usa `/info` per sapere quali comandi puoi usare");
-                    sendMessagerequest.enableMarkdown(true);
-                    sendMessagerequest.setReplyMarkup(this.getAreasMenu());
-                    try {
-                        execute(sendMessagerequest);
-                    } catch (TelegramApiException e) {
-                        e.printStackTrace();
-                    }
+                String chatId = message.getChatId().toString();
+                System.out.println("** ".concat(input).concat(" **"));
+                switch(input){
+                    case "/start":
+                        performStart(chatId);
+                    break;
+                    case "/info":
+                        performInfo(chatId);
+                    break;
+                    case "/tomorrow":
+                        performTomorrow(chatId);
+                    break;
                 }
             }
         }else if(update.hasCallbackQuery()){
@@ -59,6 +60,49 @@ public class EcoBot extends TelegramLongPollingBot {
         }
     }
 
+    public Message performStart(String chatId){
+        SendMessage sendMessagerequest = new SendMessage();
+        sendMessagerequest.setChatId(chatId);
+        sendMessagerequest.setText("Ciao, sono EcoBot \uD83D\uDE9B ! Usa i comandi per chiedermi informazioni riguardo il calendario della raccolta differenziata della tua città! ♻️Usa `/info` per sapere quali comandi puoi usare");
+        sendMessagerequest.enableMarkdown(true);
+        Message response = null;
+        try {
+            response = execute(sendMessagerequest);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public Message performInfo(String chatId){
+        SendMessage sendMessagerequest = new SendMessage();
+        sendMessagerequest.setChatId(chatId);
+        sendMessagerequest.setText("Questa è la lista di comandi che puoi usare...TODO");
+        sendMessagerequest.enableMarkdown(true);
+        Message response = null;
+        try {
+            response = execute(sendMessagerequest);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public Message performTomorrow(String chatId){
+        SendMessage sendMessagerequest = new SendMessage();
+        sendMessagerequest.setChatId(chatId);
+        sendMessagerequest.setText("Scegli l'area interessata");
+        sendMessagerequest.enableMarkdown(true);
+        sendMessagerequest.setReplyMarkup(this.getAreasMenu());
+        Message response = null;
+        try {
+            response = execute(sendMessagerequest);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
     private void getTomorrow(String areaName, String chatId){
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
@@ -71,7 +115,9 @@ public class EcoBot extends TelegramLongPollingBot {
             c.add(Calendar.DATE, 1);
             int dayOfTheWeek = c.get(Calendar.DAY_OF_WEEK);
             if(areasFiltered.get(0)!=null){
-                sendMessagerequest.setText("♻️"+areaName+"  ♻️Domani: "+DataManager.getInstance().findByDay(dayOfTheWeek, areasFiltered.get(0)));
+                System.out.println(dayOfTheWeek);
+                System.out.println(DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0)));
+                sendMessagerequest.setText("♻️"+areaName+"  ♻️Domani: "+DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0)));
             }
         }else{
             sendMessagerequest.setText("Area non disponibile");

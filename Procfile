@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* veronicadev.ecobot.Application
+web: java -DBOT_TOKEN=$BOT_TOKEN $JAVA_OPTS -cp target/classes:target/dependency/* veronicadev.ecobot.Application

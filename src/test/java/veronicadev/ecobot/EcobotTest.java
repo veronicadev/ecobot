@@ -20,7 +20,6 @@ public class EcobotTest {
     @Before
     public void setUp() {
         //bot = Mockito.mock(EcoBot.class);
-        System.setProperty("BOT_TOKEN", "test");
     }
 
     @Test
