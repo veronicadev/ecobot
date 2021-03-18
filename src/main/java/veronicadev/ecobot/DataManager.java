@@ -33,6 +33,7 @@ public class DataManager {
             }
             obj = new JSONObject(sb.toString());
             areas = getAreasFromJSON(obj);
+            System.out.println(areas);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }  catch (IOException e) {
@@ -67,7 +68,7 @@ public class DataManager {
             for (Object w: weekCalendarJson) {
                 JSONObject weekJson = (JSONObject) w;
                 TrashContainer trashContainer = new TrashContainer();
-                trashContainer.setDay(weekJson.getString("type"));
+                trashContainer.setDay(weekJson.getInt("day"));
                 trashContainer.setType(TrashType.valueOf(weekJson.getString("type")));
                 week.add(trashContainer);
             }
@@ -75,11 +76,21 @@ public class DataManager {
         return week;
     }
 
-    public static String getMunicipalityName() {
+    public String findByDay(int day, Area area){
+        String type = "";
+        for (TrashContainer trashContainer: area.getWeekCalendar()) {
+            if(trashContainer.getDay()==day){
+                type = trashContainer.getType().toString();
+            }
+        }
+        return type;
+    }
+
+    public String getMunicipalityName() {
         return municipalityName;
     }
 
-    public static List<Area> getAreas() {
+    public List<Area> getAreas() {
         return areas;
     }
 }

@@ -15,6 +15,25 @@
           "type": "CARTA"
         }
       ]
+    },
+    {
+      "name": "Zona 2",
+      "streets": "Via Roma, Corso Torino ecc",
+      "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+      "weekCalendar":[
+        {
+          "day": 5,
+          "type": "INDIFFERENZIATO"
+        },
+        {
+          "day": 6,
+          "type": "PLASTICA_LATTINE"
+        },
+        {
+          "day": 7,
+          "type": "VERDE"
+        }
+      ]
     }
   ]
 }

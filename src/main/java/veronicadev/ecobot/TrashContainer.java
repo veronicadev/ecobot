@@ -1,14 +1,14 @@
 package veronicadev.ecobot;
 
 public class TrashContainer {
-    private String day;
+    private int day;
     private TrashType type;
 
-    public String getDay() {
+    public int getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(int day) {
         this.day = day;
     }
 
