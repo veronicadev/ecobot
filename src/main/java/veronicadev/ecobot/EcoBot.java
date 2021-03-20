@@ -140,7 +140,7 @@ public class EcoBot extends TelegramLongPollingBot {
         List<Area> areasFiltered = DataManager.getInstance().getAreas().stream().filter(a -> a.getName().equals(areaName)).collect(Collectors.toList());
         System.out.println(areasFiltered);
         String dayNames[] = new DateFormatSymbols().getWeekdays();
-
+        System.out.println(dayNames.toString());
         if(!areasFiltered.isEmpty()){
             Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
             c.setTime(new Date());
@@ -148,8 +148,8 @@ public class EcoBot extends TelegramLongPollingBot {
             int dayOfTheWeek = c.get(Calendar.DAY_OF_WEEK);
             if(areasFiltered.get(0)!=null){
                 System.out.println(dayOfTheWeek);
-                System.out.println(DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0)));
-                sendMessagerequest.setText("♻️"+areaName+"  ♻️Domani: "+DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0)).concat(dayNames[c.get(dayOfTheWeek)]));
+                String type = DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+                sendMessagerequest.setText("♻️"+areaName+"  ♻️Domani: "+type);
             }
         }else{
             sendMessagerequest.setText("Area non disponibile");
