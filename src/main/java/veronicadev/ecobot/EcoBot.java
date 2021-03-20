@@ -134,6 +134,12 @@ public class EcoBot extends TelegramLongPollingBot {
         return response;
     }
 
+    public static String getDayName(int day, Locale locale) {
+        DateFormatSymbols symbols = new DateFormatSymbols(locale);
+        String[] dayNames = symbols.getWeekdays();
+        return dayNames[day];
+    }
+
     private void getTomorrow(String areaName, String chatId){
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
@@ -141,11 +147,13 @@ public class EcoBot extends TelegramLongPollingBot {
         if(!areasFiltered.isEmpty()){
             Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
 
+
             c.setTime(new Date());
             c.add(Calendar.DATE, 1);
 
             int dayOfTheWeek = c.get(Calendar.DAY_OF_WEEK);
-            System.out.println(c.getDisplayName(dayOfTheWeek, Calendar.SHORT, Locale.ITALY));
+            System.out.println(EcoBot.getDayName(dayOfTheWeek, Locale.ITALY));
+
             if(areasFiltered.get(0)!=null){
                 System.out.println(dayOfTheWeek);
                 String type = DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
