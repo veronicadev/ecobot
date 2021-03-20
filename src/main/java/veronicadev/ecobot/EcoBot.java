@@ -138,14 +138,12 @@ public class EcoBot extends TelegramLongPollingBot {
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
         List<Area> areasFiltered = DataManager.getInstance().getAreas().stream().filter(a -> a.getName().equals(areaName)).collect(Collectors.toList());
-        System.out.println(areasFiltered);
-        String dayNames[] = new DateFormatSymbols().getWeekdays();
-        for (String d: dayNames) {
-            System.out.println(d);
-        }
-        System.out.println(dayNames.toString());
         if(!areasFiltered.isEmpty()){
             Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+            String dayNames[] = new DateFormatSymbols().getWeekdays();
+            for (int i = 1; i<= dayNames.length; i++) {
+                System.out.println(dayNames[1]);
+            }
             c.setTime(new Date());
             c.add(Calendar.DATE, 1);
             int dayOfTheWeek = c.get(Calendar.DAY_OF_WEEK);
