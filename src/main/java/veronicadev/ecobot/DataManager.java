@@ -77,7 +77,7 @@ public class DataManager {
     }
 
     public String findByDay(String day, Area area){
-        String type = "Nothing";
+        String type = "Niente";
         for (TrashContainer trashContainer: area.getWeekCalendar()) {
             if(trashContainer.getDay().equals(day)){
                 type = trashContainer.getType().getName();

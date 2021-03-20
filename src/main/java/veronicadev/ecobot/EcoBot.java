@@ -12,10 +12,8 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.text.DateFormatSymbols;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -41,7 +39,10 @@ public class EcoBot extends TelegramLongPollingBot {
                         performInfo(chatId);
                     break;
                     case "/tomorrow":
-                        performTomorrow(chatId);
+                        performGetAreaMenu(chatId, "tomorrow");
+                    break;
+                    case "/getarea":
+                        performGetAreaMenu(chatId, "getarea");
                     break;
                 }
             }
@@ -50,6 +51,8 @@ public class EcoBot extends TelegramLongPollingBot {
             String[] data = callbackquery.getData().split(":");
             if(data[0].equals("tomorrow")){
                 this.getTomorrow(data[1], callbackquery.getMessage().getChatId().toString());
+            }else if(data[0].equals("getarea")){
+                this.getAreaData(data[1], callbackquery.getMessage().getChatId().toString())
             }else{
                 try {
                     this.sendAnswerCallbackQuery("Usa uno dei comandi elencati sopra!", false, callbackquery);
@@ -88,18 +91,46 @@ public class EcoBot extends TelegramLongPollingBot {
         return response;
     }
 
-    public Message performTomorrow(String chatId){
+    public Message performGetAreaMenu(String chatId, String callbackName){
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
         sendMessagerequest.setText("Scegli l'area interessata");
         sendMessagerequest.enableMarkdown(true);
-        sendMessagerequest.setReplyMarkup(this.getAreasMenu());
+        sendMessagerequest.setReplyMarkup(this.getAreasMenu(callbackName));
         Message response = null;
         try {
             response = execute(sendMessagerequest);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+        return response;
+    }
+
+    public Message getAreaData(String areaName, String chatId){
+        SendMessage sendMessagerequest = new SendMessage();
+        sendMessagerequest.setChatId(chatId);
+        Message response = null;
+        List<Area> areasFiltered = DataManager.getInstance().getAreas().stream().filter(a -> a.getName().equals(areaName)).collect(Collectors.toList());
+        System.out.println(areasFiltered);
+
+        if(!areasFiltered.isEmpty()){
+            if(areasFiltered.get(0)!=null){
+                String messageText = "♻️"+areaName+"♻️\n";
+                //String dayNames[] = new DateFormatSymbols().getWeekdays();
+                //Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+
+                //for(int i=0; i<areasFiltered.get(0).getWeekCalendar().size(); i++){}
+                sendMessagerequest.setText(messageText);
+            }
+        }else{
+            sendMessagerequest.setText("Area non disponibile");
+        }
+        try {
+            response = execute(sendMessagerequest);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
         return response;
     }
 
@@ -110,7 +141,7 @@ public class EcoBot extends TelegramLongPollingBot {
         System.out.println(areasFiltered);
 
         if(!areasFiltered.isEmpty()){
-            Calendar c = Calendar.getInstance();
+            Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
             c.setTime(new Date());
             c.add(Calendar.DATE, 1);
             int dayOfTheWeek = c.get(Calendar.DAY_OF_WEEK);
@@ -137,7 +168,7 @@ public class EcoBot extends TelegramLongPollingBot {
         execute(answerCallbackQuery);
     }
 
-    private InlineKeyboardMarkup getAreasMenu(){
+    private InlineKeyboardMarkup getAreasMenu(String callbackName){
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
@@ -145,7 +176,7 @@ public class EcoBot extends TelegramLongPollingBot {
         for (Area a: DataManager.getInstance().getAreas()) {
             InlineKeyboardButton button = new InlineKeyboardButton();
             button.setText(a.getName());
-            button.setCallbackData("tomorrow:".concat(a.getName()));
+            button.setCallbackData(callbackName.concat(":").concat(a.getName()));
             rowInline.add(button);
         }
 
