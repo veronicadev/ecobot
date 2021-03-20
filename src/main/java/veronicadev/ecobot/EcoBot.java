@@ -52,7 +52,7 @@ public class EcoBot extends TelegramLongPollingBot {
             if(data[0].equals("tomorrow")){
                 this.getTomorrow(data[1], callbackquery.getMessage().getChatId().toString());
             }else if(data[0].equals("getarea")){
-                this.getAreaData(data[1], callbackquery.getMessage().getChatId().toString())
+                this.getAreaData(data[1], callbackquery.getMessage().getChatId().toString());
             }else{
                 try {
                     this.sendAnswerCallbackQuery("Usa uno dei comandi elencati sopra!", false, callbackquery);
