@@ -140,6 +140,9 @@ public class EcoBot extends TelegramLongPollingBot {
         List<Area> areasFiltered = DataManager.getInstance().getAreas().stream().filter(a -> a.getName().equals(areaName)).collect(Collectors.toList());
         System.out.println(areasFiltered);
         String dayNames[] = new DateFormatSymbols().getWeekdays();
+        for (String d: dayNames) {
+            System.out.println(d);
+        }
         System.out.println(dayNames.toString());
         if(!areasFiltered.isEmpty()){
             Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
