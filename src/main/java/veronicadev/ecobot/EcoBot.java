@@ -110,7 +110,6 @@ public class EcoBot extends TelegramLongPollingBot {
         sendMessagerequest.setChatId(chatId);
         Message response = null;
         List<Area> areasFiltered = DataManager.getInstance().getAreas().stream().filter(a -> a.getName().equals(areaName)).collect(Collectors.toList());
-        System.out.println(areasFiltered);
 
         if(!areasFiltered.isEmpty()){
             if(areasFiltered.get(0)!=null){
@@ -118,8 +117,6 @@ public class EcoBot extends TelegramLongPollingBot {
                 stringBuilder.append("♻️").append(areaName).append("♻️\n");
 
                 if(areasFiltered.get(0).getWeekCalendar().size()>0){
-                    System.out.println(areasFiltered.get(0).getWeekCalendar().size());
-                    System.out.println(areasFiltered.get(0).getWeekCalendar().toString());
                     for(TrashContainer t: areasFiltered.get(0).getWeekCalendar()) {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
                         System.out.println(dayName);
