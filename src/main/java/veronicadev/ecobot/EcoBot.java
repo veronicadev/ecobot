@@ -114,7 +114,8 @@ public class EcoBot extends TelegramLongPollingBot {
 
         if(!areasFiltered.isEmpty()){
             if(areasFiltered.get(0)!=null){
-                String messageText = "♻️"+areaName+"♻️\n";
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("♻️").append(areaName).append("♻️\n");
 
                 if(areasFiltered.get(0).getWeekCalendar().size()>0){
                     System.out.println(areasFiltered.get(0).getWeekCalendar().size());
@@ -123,10 +124,10 @@ public class EcoBot extends TelegramLongPollingBot {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
                         System.out.println(dayName);
                         System.out.println(t.getType().getName());
-                        messageText.concat(dayName+": "+t.getType().getName()+"\n");
+                        stringBuilder.append(dayName).append(": ").append(t.getType().getName()).append("\n");
                     }
                 }
-                sendMessagerequest.setText(messageText);
+                sendMessagerequest.setText(stringBuilder.toString());
             }
         }else{
             sendMessagerequest.setText("Area non disponibile");
