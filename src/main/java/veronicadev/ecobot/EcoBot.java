@@ -123,7 +123,7 @@ public class EcoBot extends TelegramLongPollingBot {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
                         System.out.println(dayName);
                         System.out.println(t.getType().getName());
-                        messageText.concat(dayName).concat(": ").concat(t.getType().getName()).concat("\n");
+                        messageText.concat(dayName+": "+t.getType().getName()+"\n");
                     }
                 }
                 sendMessagerequest.setText(messageText);
