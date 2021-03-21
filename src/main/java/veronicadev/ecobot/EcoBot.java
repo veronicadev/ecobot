@@ -30,7 +30,6 @@ public class EcoBot extends TelegramLongPollingBot {
             if(message.hasText()){
                 String input = message.getText();
                 String chatId = message.getChatId().toString();
-                System.out.println("** ".concat(input).concat(" **"));
                 switch(input){
                     case "/start":
                         performStart(chatId);
@@ -121,8 +120,9 @@ public class EcoBot extends TelegramLongPollingBot {
                     System.out.println(areasFiltered.get(0).getWeekCalendar().size());
                     System.out.println(areasFiltered.get(0).getWeekCalendar().toString());
                     for(TrashContainer t: areasFiltered.get(0).getWeekCalendar()) {
-                        System.out.println(t.toString());
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
+                        System.out.println(dayName);
+                        System.out.println(t.getType().getName());
                         messageText.concat(dayName).concat(": ").concat(t.getType().getName()).concat("\n");
                     }
                 }
