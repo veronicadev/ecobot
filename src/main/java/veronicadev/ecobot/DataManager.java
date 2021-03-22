@@ -70,20 +70,20 @@ public class DataManager {
                 TrashContainer trashContainer = new TrashContainer();
                 trashContainer.setDay(weekJson.getString("day"));
                 trashContainer.setType(TrashType.valueOf(weekJson.getString("type")));
+                trashContainer.setHoursRange(weekJson.getString("hoursRange"));
                 week.add(trashContainer);
             }
         }
         return week;
     }
 
-    public String findByDay(String day, Area area){
-        String type = "Niente";
+    public TrashContainer findByDay(String day, Area area){
         for (TrashContainer trashContainer: area.getWeekCalendar()) {
             if(trashContainer.getDay().equals(day)){
-                type = trashContainer.getType().getName();
+                return trashContainer;
             }
         }
-        return type;
+        return null;
     }
 
     public String getMunicipalityName() {

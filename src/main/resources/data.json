@@ -8,11 +8,13 @@
       "weekCalendar":[
         {
           "day": "1",
-          "type": "ORGANICO"
+          "type": "ORGANICO",
+          "hoursRange": "Svuotamento cassonetto dalle ore 7"
         },
         {
           "day": "2",
-          "type": "CARTA"
+          "type": "CARTA",
+          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
         }
       ]
     },

@@ -113,11 +113,13 @@ public class EcoBot extends TelegramLongPollingBot {
 
         if(!areasFiltered.isEmpty()){
             if(areasFiltered.get(0)!=null){
+                Area area = areasFiltered.get(0);
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("♻️").append(areaName).append("♻️\n");
+                stringBuilder.append(area.getAddressedTo()).append("\n");
 
-                if(areasFiltered.get(0).getWeekCalendar().size()>0){
-                    for(TrashContainer t: areasFiltered.get(0).getWeekCalendar()) {
+                if(area.getWeekCalendar().size()>0){
+                    for(TrashContainer t: area.getWeekCalendar()) {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
                         System.out.println(dayName);
                         System.out.println(t.getType().getName());
@@ -151,8 +153,13 @@ public class EcoBot extends TelegramLongPollingBot {
 
             if(areasFiltered.get(0)!=null){
                 System.out.println(dayOfTheWeek);
-                String type = DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
-                sendMessagerequest.setText("♻️"+areaName+"  ♻️\n Domani "+dayName+": \n"+type);
+                TrashContainer t = DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+                if(t!=null){
+                    sendMessagerequest.setText("♻️"+areaName+"  ♻️\n Domani "+dayName+": \n"+t.getType().getName()+" \n"+t.getHoursRange());
+                }else{
+                    sendMessagerequest.setText("♻️"+areaName+"  ♻️\n Domani "+dayName+": Niente");
+                }
+
             }
         }else{
             sendMessagerequest.setText("Area non disponibile");
