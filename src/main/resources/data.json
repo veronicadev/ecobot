@@ -15,6 +15,11 @@
           "day": "2",
           "type": "CARTA",
           "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+        },
+        {
+          "day": "3",
+          "type": "CARTA",
+          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
         }
       ]
     },
@@ -25,15 +30,18 @@
       "weekCalendar":[
         {
           "day": "5",
-          "type": "INDIFFERENZIATO"
+          "type": "INDIFFERENZIATO",
+          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
         },
         {
           "day": "6",
-          "type": "PLASTICA_LATTINE"
+          "type": "PLASTICA_LATTINE",
+          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
         },
         {
           "day": "7",
-          "type": "VERDE"
+          "type": "VERDE",
+          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
         }
       ]
     }
