@@ -1,5 +1,7 @@
 package veronicadev.ecobot;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 
 
 public class EcoBot extends TelegramLongPollingBot {
+    private Logger logger = LoggerFactory.getLogger(EcoBot.class);
     private static final String BOT_TOKEN = System.getProperty("BOT_TOKEN");
     private static final String botUsername = "astiecobot";
 
@@ -26,10 +29,10 @@ public class EcoBot extends TelegramLongPollingBot {
         if(update.hasMessage()){
             Message message = update.getMessage();
 
-            //check if the message contains a text
             if(message.hasText()){
                 String input = message.getText();
                 String chatId = message.getChatId().toString();
+                logger.info(input);
                 switch(input){
                     case "/start":
                         performStart(chatId);
@@ -48,6 +51,7 @@ public class EcoBot extends TelegramLongPollingBot {
         }else if(update.hasCallbackQuery()){
             CallbackQuery callbackquery = update.getCallbackQuery();
             String[] data = callbackquery.getData().split(":");
+            logger.info(callbackquery.getData());
             if(data[0].equals("tomorrow")){
                 this.getTomorrow(data[1], callbackquery.getMessage().getChatId().toString());
             }else if(data[0].equals("getarea")){
@@ -113,11 +117,13 @@ public class EcoBot extends TelegramLongPollingBot {
 
         if(!areasFiltered.isEmpty()){
             if(areasFiltered.get(0)!=null){
+                Area area = areasFiltered.get(0);
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("♻️").append(areaName).append("♻️\n");
-
-                if(areasFiltered.get(0).getWeekCalendar().size()>0){
-                    for(TrashContainer t: areasFiltered.get(0).getWeekCalendar()) {
+                stringBuilder.append(area.getAddressedTo()).append("\n\n");
+                stringBuilder.append("**Calendario**\n");
+                if(area.getWeekCalendar().size()>0){
+                    for(TrashContainer t: area.getWeekCalendar()) {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
                         System.out.println(dayName);
                         System.out.println(t.getType().getName());
@@ -151,8 +157,13 @@ public class EcoBot extends TelegramLongPollingBot {
 
             if(areasFiltered.get(0)!=null){
                 System.out.println(dayOfTheWeek);
-                String type = DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
-                sendMessagerequest.setText("♻️"+areaName+"  ♻️\n Domani "+dayName+": \n"+type);
+                TrashContainer t = DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+                if(t!=null){
+                    sendMessagerequest.setText("♻️"+areaName+"  ♻️\n Domani "+dayName+": \n"+t.getType().getName()+" \n"+t.getHoursRange());
+                }else{
+                    sendMessagerequest.setText("♻️"+areaName+"  ♻️\n Domani "+dayName+": Niente");
+                }
+
             }
         }else{
             sendMessagerequest.setText("Area non disponibile");

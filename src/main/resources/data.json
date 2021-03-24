@@ -8,10 +8,16 @@
       "weekCalendar":[
         {
           "day": "1",
-          "type": "ORGANICO"
+          "type": "ORGANICO",
+          "hoursRange": "Svuotamento cassonetto dalle ore 7"
         },
         {
           "day": "2",
+          "type": "CARTA",
+          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+        },
+        {
+          "day": "3",
           "type": "CARTA"
         }
       ]
@@ -23,15 +29,18 @@
       "weekCalendar":[
         {
           "day": "5",
-          "type": "INDIFFERENZIATO"
+          "type": "INDIFFERENZIATO",
+          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
         },
         {
           "day": "6",
-          "type": "PLASTICA_LATTINE"
+          "type": "PLASTICA_LATTINE",
+          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
         },
         {
           "day": "7",
-          "type": "VERDE"
+          "type": "VERDE",
+          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
         }
       ]
     }
