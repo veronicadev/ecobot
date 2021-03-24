@@ -39,6 +39,10 @@ public class EcobotTest {
         Assert.assertNotNull(ecoBot.getBotUsername());
     }
 
+    @Test
+    public void test_4(){
+        DataManager.getInstance().readJSON("data.json");
+    }
     /*@Test
     public void test_bo() {
         Mockito.doCallRealMethod().when(bot).onUpdatesReceived(any());

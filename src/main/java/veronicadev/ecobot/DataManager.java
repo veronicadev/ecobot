@@ -18,6 +18,7 @@ public class DataManager {
         }
         return dataManager;
     }
+
     @SuppressWarnings("unchecked")
     public JSONObject readJSON(String path){
         System.out.println("** Retrieving data init **");
@@ -38,12 +39,14 @@ public class DataManager {
             e.printStackTrace();
         }  catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         System.out.println("** Retrieving data end **");
         return obj;
     }
 
-    public static ArrayList<Area> getAreasFromJSON(JSONObject jsonFile){
+    public static ArrayList<Area> getAreasFromJSON(JSONObject jsonFile) throws Exception{
         ArrayList<Area> areas = new ArrayList<>();
         municipalityName = jsonFile.getString("municipalityName");
         if(jsonFile.has("areas")){
@@ -53,10 +56,14 @@ public class DataManager {
                 JSONObject areaJson = (JSONObject) a;
                 area.setName(areaJson.getString("name"));
                 area.setStreets(areaJson.getString("streets"));
-                area.setAddressedTo(areaJson.getString("addressedTo"));
+                if(areaJson.has("addressedTo")){
+                    area.setAddressedTo(areaJson.getString("addressedTo"));
+                }
                 area.setWeekCalendar(getWeekCalendar(areaJson));
                 areas.add(area);
             }
+        }else{
+            throw new Exception("Expected field 'areas' in Data.json");
         }
         return areas;
     }
@@ -69,8 +76,9 @@ public class DataManager {
                 JSONObject weekJson = (JSONObject) w;
                 TrashContainer trashContainer = new TrashContainer();
                 trashContainer.setDay(weekJson.getString("day"));
-                trashContainer.setType(TrashType.valueOf(weekJson.getString("type")));
-                trashContainer.setHoursRange(weekJson.getString("hoursRange"));
+                if(weekJson.has("hoursRange")){
+                    trashContainer.setHoursRange(weekJson.getString("hoursRange"));
+                }
                 week.add(trashContainer);
             }
         }
