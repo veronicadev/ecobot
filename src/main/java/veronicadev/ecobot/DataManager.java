@@ -76,6 +76,7 @@ public class DataManager {
                 JSONObject weekJson = (JSONObject) w;
                 TrashContainer trashContainer = new TrashContainer();
                 trashContainer.setDay(weekJson.getString("day"));
+                trashContainer.setType(weekJson.getString("type"));
                 if(weekJson.has("hoursRange")){
                     trashContainer.setHoursRange(weekJson.getString("hoursRange"));
                 }
