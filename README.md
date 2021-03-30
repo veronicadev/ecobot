@@ -84,13 +84,25 @@ mvn install
 test -DBOT_TOKEN=someValue -f pom.xml
 
 ```
-5. Procfile
+5. Procfile for Heroku
 ```sh
 web: java -DBOT_TOKEN=$BOT_TOKEN $JAVA_OPTS -cp target/classes:target/dependency/* veronicadev.ecobot.Application
 
 ```
 
 ## Features
+
+*  */tomorrow* <br>
+   EcoBot will tell you what type of garbage will be collected tomorrow in a specific area selected by the user.
+
+*  */getarea* <br>
+   EcoBot will tell you all the information about a specific area selected by the user.
+
+*  */calendar* <br>
+   EcoBot will tell you the calendar of the next 7 days of a specific area selected by the user.
+   
+*  */ecocentro* <br>
+   EcoBot will tell you information about the Recycling Depot in the city along with time, address and telephone number.
 
 ## Roadmap
 
