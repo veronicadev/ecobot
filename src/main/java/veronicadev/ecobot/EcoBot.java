@@ -113,8 +113,15 @@ public class EcoBot extends TelegramLongPollingBot {
 
     public Message performInfo(String chatId){
         SendMessage sendMessagerequest = new SendMessage();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Ciao, sono EcoBot qui sotto sono elencati i comandi che puoi usare \n\n");
+        stringBuilder.append("/ecocentro - Informazioni riguardo l'ecocentro (orario, indirizzo e telefono) \n");
+        stringBuilder.append("/getarea - Informazioni e calendario riguardo una specifica zona selezionata dall'utente \n");
+        stringBuilder.append("/tomorrow - Indica che tipo di rifiuto viene raccolto domani \n");
+        stringBuilder.append("/calendar - Mostra il calendario dei prossimi 7 giorni di una specifica zona \n");
+        stringBuilder.append("/info - Informazioni di Ecobot \n\n");
         sendMessagerequest.setChatId(chatId);
-        sendMessagerequest.setText("Questa è la lista di comandi che puoi usare...TODO");
+        sendMessagerequest.setText(stringBuilder.toString());
         sendMessagerequest.enableMarkdown(true);
         Message response = null;
         try {
