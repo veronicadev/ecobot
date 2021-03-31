@@ -103,6 +103,45 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Zona 4",
+      "streets": "Via Roma, Corso Torino ecc",
+      "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+      "weekCalendar":[
+        {
+          "day": "5",
+          "containers": [
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            },
+            {
+              "type": "CARTA",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        },
+
+        {
+          "day": "6",
+          "containers": [
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        },
+        {
+          "day": "7",
+          "containers": [
+            {
+              "type": "VERDE",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
