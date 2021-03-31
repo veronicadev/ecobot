@@ -144,16 +144,19 @@ public class EcoBot extends TelegramLongPollingBot {
             if(areasFiltered.get(0)!=null){
                 Area area = areasFiltered.get(0);
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("♻️").append(areaName).append("♻️\n");
+                stringBuilder.append("♻️").append(areaName).append("♻️\n\n");
                 stringBuilder.append(area.getAddressedTo()).append("\n\n");
-                stringBuilder.append("*Calendario*\n");
+                stringBuilder.append("*CALENDARIO*\n\n");
                 if(area.getWeekCalendar().size()>0){
                     for(TrashContainer t: area.getWeekCalendar()) {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
-                        stringBuilder.append(dayName).append(": ").append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                        stringBuilder.append("→ ").append(" *").append(dayName).append("*: \n");
+                        stringBuilder.append("  ").append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                        stringBuilder.append("  _").append(t.getHoursRange()).append("_ \n");
                     }
                 }
                 sendMessagerequest.setText(stringBuilder.toString());
+                sendMessagerequest.setParseMode("Markdown");
             }
         }else{
             sendMessagerequest.setText("Area non disponibile");
@@ -180,7 +183,7 @@ public class EcoBot extends TelegramLongPollingBot {
             if(areasFiltered.get(0)!=null){
                 TrashContainer t = DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("♻️").append(areaName).append("♻️\n Domani ").append(dayName).append(": \n");
+                stringBuilder.append("♻️").append(areaName).append("♻️\n\n Domani ").append(dayName).append(": \n");
                 if(t!=null){
                     stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
                 }else{
