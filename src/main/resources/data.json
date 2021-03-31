@@ -1,5 +1,10 @@
 {
   "municipalityName": "Asti",
+  "recyclingDepot": {
+    "telephone": "0141 470394",
+    "address": "Via E. Ceca, 1",
+    "time":  "Lunedi, martedì, mercoledi, giovedi: \n 08:30–12:30, 14:30–17 \n Venerdi, sabato: 08:30–12:30"
+  },
   "areas":[
     {
       "name": "Zona 1",

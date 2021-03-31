@@ -10,6 +10,7 @@ import java.util.List;
 public class DataManager {
     private static DataManager dataManager = null;
     private static String municipalityName;
+    private static RecyclingDepot recyclingDepot;
     private static List<Area> areas = new ArrayList<>();
     private DataManager(){}
     public static DataManager getInstance(){
@@ -49,6 +50,7 @@ public class DataManager {
     public static ArrayList<Area> getAreasFromJSON(JSONObject jsonFile) throws Exception{
         ArrayList<Area> areas = new ArrayList<>();
         municipalityName = jsonFile.getString("municipalityName");
+        recyclingDepot = getRecyclingDepotFromJSON(jsonFile);
         if(jsonFile.has("areas")){
             JSONArray areasJson = jsonFile.getJSONArray("areas");
             for (Object a: areasJson) {
@@ -66,6 +68,17 @@ public class DataManager {
             throw new Exception("Expected field 'areas' in Data.json");
         }
         return areas;
+    }
+
+    private static RecyclingDepot getRecyclingDepotFromJSON(JSONObject jsonFile){
+        RecyclingDepot recyclingDepot = new RecyclingDepot();
+        if(jsonFile.has("recyclingDepot")){
+            JSONObject rd = jsonFile.getJSONObject("recyclingDepot");
+            recyclingDepot.setAddress(rd.getString("address"));
+            recyclingDepot.setTime(rd.getString("time"));
+            recyclingDepot.setTelephone(rd.getString("telephone"));
+        }
+        return recyclingDepot;
     }
 
     private static ArrayList<TrashContainer> getWeekCalendar(JSONObject areaJson){
@@ -101,5 +114,9 @@ public class DataManager {
 
     public List<Area> getAreas() {
         return areas;
+    }
+
+    public RecyclingDepot getRecyclingDepot() {
+        return recyclingDepot;
     }
 }
