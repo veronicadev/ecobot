@@ -22,6 +22,9 @@ public class TrashContainer {
     }
 
     public String getHoursRange() {
+        if(hoursRange==null){
+            return "";
+        }
         return hoursRange;
     }
 
