@@ -99,7 +99,7 @@ public class DataManager {
         return week;
     }
 
-    public TrashContainer findByDay(String day, Area area){
+    public TrashContainer findContainer(String day, Area area){
         for (TrashContainer trashContainer: area.getWeekCalendar()) {
             if(trashContainer.getDay().equals(day)){
                 return trashContainer;

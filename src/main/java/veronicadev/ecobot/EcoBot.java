@@ -151,8 +151,8 @@ public class EcoBot extends TelegramLongPollingBot {
                     for(TrashContainer t: area.getWeekCalendar()) {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
                         stringBuilder.append("→ ").append(" *").append(dayName).append("*: \n");
-                        stringBuilder.append("     ").append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                        stringBuilder.append("     _").append(t.getHoursRange()).append("_ \n\n");
+                        stringBuilder.append("      ").append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                        stringBuilder.append("      _").append(t.getHoursRange()).append("_ \n\n");
                     }
                 }
                 sendMessagerequest.setText(stringBuilder.toString());
@@ -181,7 +181,7 @@ public class EcoBot extends TelegramLongPollingBot {
             String dayName = DateUtils.getDayName(dayOfTheWeek, Locale.ITALY);
 
             if(areasFiltered.get(0)!=null){
-                TrashContainer t = DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+                TrashContainer t = DataManager.getInstance().findContainer(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("♻️").append(areaName).append("♻️\n\n Domani ").append(dayName).append(": \n");
                 if(t!=null){
