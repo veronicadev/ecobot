@@ -1,5 +1,6 @@
 package veronicadev.ecobot;
 
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.abilitybots.api.bot.AbilityBot;
@@ -194,20 +195,20 @@ public class EcoBot extends TelegramLongPollingBot {
 
                 if(area.getWeekCalendar().size()>0){
                     for(int day=1; day<=7; day++){
-
-                        int dayOfTheWeek = DateUtils.addDay(day, today).get(Calendar.DAY_OF_WEEK);
-                        int dayOfMonth = DateUtils.addDay(day, today).get(Calendar.DAY_OF_MONTH);
-                        String monthName = DateUtils.getMonthName(dayOfMonth, Locale.ITALY);
+                        Calendar calendar = DateUtils.addDay(day, today);
+                        int dayOfTheWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                        int month =calendar.get(Calendar.MONTH);
+                        String monthName = DateUtils.getMonthName(month, Locale.ITALY);
                         TrashContainer t = DataManager.getInstance().findContainer(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
 
                         stringBuilder.append("\uD83D\uDDD3️").append(" *").append(dayOfMonth).append(" ").append(monthName).append("*: \n");
-
-
+                        
                         if(t==null){
                             stringBuilder.append("Nessun ritiro\n\n");
                         }else{
                             stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                            stringBuilder.append("_").append(t.getHoursRange()).append("_ \n\n");
+                            stringBuilder.append("_").append(t.getHoursRange()).append("_ \n");
                         }
                     }
                 }
