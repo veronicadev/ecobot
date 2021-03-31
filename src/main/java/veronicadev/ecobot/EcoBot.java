@@ -161,11 +161,18 @@ public class EcoBot extends TelegramLongPollingBot {
                 stringBuilder.append(area.getAddressedTo()).append("\n\n");
                 stringBuilder.append("*CALENDARIO*\n\n");
                 if(area.getWeekCalendar().size()>0){
-                    for(TrashContainer t: area.getWeekCalendar()) {
-                        String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
-                        stringBuilder.append("\uD83D\uDDD3️").append(" *").append(dayName).append("*: \n");
-                        stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                        stringBuilder.append("_").append(t.getHoursRange()).append("_ \n\n");
+                    for (int i = 1; i <=7 ; i++) {
+                        List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(i), areasFiltered.get(0));
+                        String dayName = DateUtils.getDayName(i, Locale.ITALY);
+                        stringBuilder.append("\n\n").append("\uD83D\uDDD3️").append(" *").append(dayName).append("*: \n");
+                        if(!trashContainerList.isEmpty()){
+                            for (TrashContainer t: trashContainerList) {
+                                stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                                stringBuilder.append("_").append(t.getHoursRange()).append("_");
+                            }
+                        }else{
+                            stringBuilder.append("Nessun ritiro");
+                        }
                     }
                 }
                 sendMessagerequest.setText(stringBuilder.toString());
@@ -207,15 +214,15 @@ public class EcoBot extends TelegramLongPollingBot {
                         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
                         int month =calendar.get(Calendar.MONTH);
                         String monthName = DateUtils.getMonthName(month, Locale.ITALY);
-                        TrashContainer t = DataManager.getInstance().findContainer(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
-
                         stringBuilder.append("\n\n").append("\uD83D\uDDD3️").append(" *").append(dayOfMonth).append(" ").append(monthName).append("*: \n");
 
-                        if(t==null){
-                            stringBuilder.append("Nessun ritiro");
+                        List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+                        if(!trashContainerList.isEmpty()){
+                            for (TrashContainer t: trashContainerList) {
+                                stringBuilder.append("\n\n").append(TrashType.valueOf(t.getType()).getName()).append("\n\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
+                            }
                         }else{
-                            stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                            stringBuilder.append("_").append(t.getHoursRange()).append("_ ");
+                            stringBuilder.append("Nessun ritiro");
                         }
                     }
                 }
@@ -245,11 +252,14 @@ public class EcoBot extends TelegramLongPollingBot {
             String dayName = DateUtils.getDayName(dayOfTheWeek, Locale.ITALY);
 
             if(areasFiltered.get(0)!=null){
-                TrashContainer t = DataManager.getInstance().findContainer(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+                List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("♻️").append(areaName).append("♻️\n\n Domani ").append(dayName).append(": \n");
-                if(t!=null){
-                    stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
+                stringBuilder.append("♻️").append(areaName).append("♻️\n\n Domani ").append(dayName).append(":");
+                if(!trashContainerList.isEmpty()){
+                    for (TrashContainer t: trashContainerList) {
+                        stringBuilder.append("\n\n").append(TrashType.valueOf(t.getType()).getName()).append("\n\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
+                    }
                 }else{
                     stringBuilder.append("Nessun ritiro");
                 }

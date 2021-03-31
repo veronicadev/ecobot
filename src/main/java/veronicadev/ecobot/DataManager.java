@@ -99,13 +99,14 @@ public class DataManager {
         return week;
     }
 
-    public TrashContainer findContainer(String day, Area area){
+    public List<TrashContainer> findContainers(String day, Area area){
+        List<TrashContainer> trashContainers = new ArrayList<>();
         for (TrashContainer trashContainer: area.getWeekCalendar()) {
             if(trashContainer.getDay().equals(day)){
-                return trashContainer;
+                trashContainers.add(trashContainer);
             }
         }
-        return null;
+        return trashContainers;
     }
 
     public String getMunicipalityName() {

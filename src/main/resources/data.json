@@ -7,23 +7,39 @@
   },
   "areas":[
     {
-      "name": "Zona 1",
+      "name": "Zona Centro",
       "streets": "Via Roma, Corso Torino ecc",
       "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
       "weekCalendar":[
         {
-          "day": "1",
+          "day": "2",
           "type": "ORGANICO",
           "hoursRange": "Svuotamento cassonetto dalle ore 7"
         },
         {
           "day": "2",
-          "type": "CARTA",
-          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+          "type": "ORGANICO",
+          "hoursRange": "Svuotamento cassonetto dalle ore 7"
         },
         {
           "day": "3",
-          "type": "CARTA"
+          "type": "INDIFFERENZIATO",
+          "hoursRange": "svuotamento cassonetto dalle 7"
+        },
+        {
+          "day": "7",
+          "type": "CARTA",
+          "hoursRange": "svuotamento cassonetto dalle 7"
+        },
+        {
+          "day": "4",
+          "type": "VERDE",
+          "hoursRange": "esposizione cassonetto su strada comunale entro le 12"
+        },
+        {
+          "day": "5",
+          "type": "VETRO",
+          "hoursRange": "esposizione sacchetto su strada comunale dalle 19 alle 20,30"
         }
       ]
     },
