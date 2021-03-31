@@ -191,7 +191,7 @@ public class EcoBot extends TelegramLongPollingBot {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("♻️").append(areaName).append("♻️\n\n");
                 stringBuilder.append(area.getAddressedTo()).append("\n\n");
-                stringBuilder.append("*CALENDARIO PER PROSSIMI 7 GIORNI*\n\n");
+                stringBuilder.append("*CALENDARIO PER PROSSIMI 7 GIORNI*");
 
                 if(area.getWeekCalendar().size()>0){
                     for(int day=1; day<=7; day++){
@@ -202,13 +202,13 @@ public class EcoBot extends TelegramLongPollingBot {
                         String monthName = DateUtils.getMonthName(month, Locale.ITALY);
                         TrashContainer t = DataManager.getInstance().findContainer(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
 
-                        stringBuilder.append("\uD83D\uDDD3️").append(" *").append(dayOfMonth).append(" ").append(monthName).append("*: \n");
-                        
+                        stringBuilder.append("\n\n").append("\uD83D\uDDD3️").append(" *").append(dayOfMonth).append(" ").append(monthName).append("*: \n");
+
                         if(t==null){
-                            stringBuilder.append("Nessun ritiro\n\n");
+                            stringBuilder.append("Nessun ritiro");
                         }else{
                             stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                            stringBuilder.append("_").append(t.getHoursRange()).append("_ \n");
+                            stringBuilder.append("_").append(t.getHoursRange()).append("_ ");
                         }
                     }
                 }
