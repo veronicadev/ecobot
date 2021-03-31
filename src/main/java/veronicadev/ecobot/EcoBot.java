@@ -49,16 +49,21 @@ public class EcoBot extends TelegramLongPollingBot {
                     case "/ecocentro":
                         performEcocentro(chatId);
                     break;
+                    case "/calendar":
+                        performGetAreaMenu(chatId, "calendar");
+                    break;
                 }
             }
         }else if(update.hasCallbackQuery()){
             CallbackQuery callbackquery = update.getCallbackQuery();
             String[] data = callbackquery.getData().split(":");
-            logger.info(callbackquery.getData());
+
             if(data[0].equals("tomorrow")){
                 this.getTomorrow(data[1], callbackquery.getMessage().getChatId().toString());
             }else if(data[0].equals("getarea")){
                 this.getAreaData(data[1], callbackquery.getMessage().getChatId().toString());
+            }else if(data[0].equals("calendar")){
+                this.getCalendar(data[1], callbackquery.getMessage().getChatId().toString());
             }else{
                 try {
                     this.sendAnswerCallbackQuery("Usa uno dei comandi elencati sopra!", false, callbackquery);
@@ -150,9 +155,60 @@ public class EcoBot extends TelegramLongPollingBot {
                 if(area.getWeekCalendar().size()>0){
                     for(TrashContainer t: area.getWeekCalendar()) {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
-                        stringBuilder.append("→ ").append(" *").append(dayName).append("*: \n");
-                        stringBuilder.append("      ").append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                        stringBuilder.append("      _").append(t.getHoursRange()).append("_ \n\n");
+                        stringBuilder.append("\uD83D\uDDD3️").append(" *").append(dayName).append("*: \n");
+                        stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                        stringBuilder.append("_").append(t.getHoursRange()).append("_ \n\n");
+                    }
+                }
+                sendMessagerequest.setText(stringBuilder.toString());
+                sendMessagerequest.setParseMode("Markdown");
+            }
+        }else{
+            sendMessagerequest.setText("Area non disponibile");
+        }
+        try {
+            response = execute(sendMessagerequest);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
+
+    public Message getCalendar(String areaName, String chatId){
+        SendMessage sendMessagerequest = new SendMessage();
+        sendMessagerequest.setChatId(chatId);
+        Message response = null;
+        List<Area> areasFiltered = DataManager.getInstance().getAreas().stream().filter(a -> a.getName().equals(areaName)).collect(Collectors.toList());
+
+        if(!areasFiltered.isEmpty()){
+            if(areasFiltered.get(0)!=null){
+                Area area = areasFiltered.get(0);
+                Date today = new Date();
+
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("♻️").append(areaName).append("♻️\n\n");
+                stringBuilder.append(area.getAddressedTo()).append("\n\n");
+                stringBuilder.append("*CALENDARIO PER PROSSIMI 7 GIORNI*\n\n");
+
+                if(area.getWeekCalendar().size()>0){
+                    for(int day=1; day<=7; day++){
+
+                        int dayOfTheWeek = DateUtils.addDay(day, today).get(Calendar.DAY_OF_WEEK);
+                        int dayOfMonth = DateUtils.addDay(day, today).get(Calendar.DAY_OF_MONTH);
+                        String monthName = DateUtils.getMonthName(dayOfMonth, Locale.ITALY);
+                        TrashContainer t = DataManager.getInstance().findContainer(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+
+                        stringBuilder.append("\uD83D\uDDD3️").append(" *").append(dayOfMonth).append(" ").append(monthName).append("*: \n");
+
+
+                        if(t==null){
+                            stringBuilder.append("Nessun ritiro\n\n");
+                        }else{
+                            stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                            stringBuilder.append("_").append(t.getHoursRange()).append("_ \n\n");
+                        }
                     }
                 }
                 sendMessagerequest.setText(stringBuilder.toString());
@@ -177,7 +233,7 @@ public class EcoBot extends TelegramLongPollingBot {
         List<Area> areasFiltered = DataManager.getInstance().getAreas().stream().filter(a -> a.getName().equals(areaName)).collect(Collectors.toList());
         if(!areasFiltered.isEmpty()){
 
-            int dayOfTheWeek = DateUtils.addDay(1, new Date());
+            int dayOfTheWeek = DateUtils.addDay(1, new Date()).get(Calendar.DAY_OF_WEEK);
             String dayName = DateUtils.getDayName(dayOfTheWeek, Locale.ITALY);
 
             if(areasFiltered.get(0)!=null){
