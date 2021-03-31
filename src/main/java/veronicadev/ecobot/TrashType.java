@@ -5,7 +5,8 @@ public enum TrashType {
     INDIFFERENZIATO("INDIFFERENZIATO", "Indifferenziato"),
     PLASTICA_LATTINE("PLASTICA_LATTINE", "Plastica/Lattine"),
     CARTA("CARTA", "Carta"),
-    VERDE("VERDE", "Verde");
+    VERDE("VERDE", "Verde"),
+    VETRO("VETRO", "Vetro");
 
     private String type;
     private String name;

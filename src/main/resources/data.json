@@ -27,6 +27,11 @@
           "hoursRange": "svuotamento cassonetto dalle 7"
         },
         {
+          "day": "3",
+          "type": "VERDE",
+          "hoursRange": "svuotamento cassonetto dalle 7"
+        },
+        {
           "day": "7",
           "type": "CARTA",
           "hoursRange": "svuotamento cassonetto dalle 7"

@@ -255,10 +255,10 @@ public class EcoBot extends TelegramLongPollingBot {
                 List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
 
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("♻️").append(areaName).append("♻️\n\n Domani ").append(dayName).append(":");
+                stringBuilder.append("♻️").append(areaName).append("♻️\n\n Domani ").append(dayName).append(":").append("\n");
                 if(!trashContainerList.isEmpty()){
                     for (TrashContainer t: trashContainerList) {
-                        stringBuilder.append("\n\n").append(TrashType.valueOf(t.getType()).getName()).append("\n\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
+                        stringBuilder.append("\uD83D\uDDD1️").append(TrashType.valueOf(t.getType()).getName()).append("\n").append("\uD83D\uDD51 ").append(t.getHoursRange()).append("\n\n");
                     }
                 }else{
                     stringBuilder.append("Nessun ritiro");
