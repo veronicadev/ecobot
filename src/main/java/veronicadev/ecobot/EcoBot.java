@@ -159,7 +159,7 @@ public class EcoBot extends TelegramLongPollingBot {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("♻️").append(areaName).append("♻️\n\n");
                 stringBuilder.append(area.getAddressedTo()).append("\n\n");
-                stringBuilder.append("*CALENDARIO*\n\n");
+                stringBuilder.append("*CALENDARIO*");
                 if(area.getWeekCalendar().size()>0){
                     for (int i = 1; i <=7 ; i++) {
                         List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(i), areasFiltered.get(0));
@@ -167,8 +167,8 @@ public class EcoBot extends TelegramLongPollingBot {
                         stringBuilder.append("\n\n").append("\uD83D\uDDD3️").append(" *").append(dayName).append("*: \n");
                         if(!trashContainerList.isEmpty()){
                             for (TrashContainer t: trashContainerList) {
-                                stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                                stringBuilder.append("_").append(t.getHoursRange()).append("_");
+                                stringBuilder.append("\uD83D\uDDD1️").append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                                stringBuilder.append("\uD83D\uDD51 ").append("_").append(t.getHoursRange()).append("_\n");
                             }
                         }else{
                             stringBuilder.append("Nessun ritiro");
@@ -219,7 +219,7 @@ public class EcoBot extends TelegramLongPollingBot {
                         List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
                         if(!trashContainerList.isEmpty()){
                             for (TrashContainer t: trashContainerList) {
-                                stringBuilder.append("\n\n").append(TrashType.valueOf(t.getType()).getName()).append("\n\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
+                                stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
                             }
                         }else{
                             stringBuilder.append("Nessun ritiro");
