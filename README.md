@@ -40,7 +40,7 @@ Ecobot is a telegram bot that provides information about the separate collection
         "name": "Zona 1",
         "streets": "Via Roma, Corso Torino ecc",
         "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
-        "weekCalendar":[
+        "areaCalendar":[
             {
               "day": "1",
               "type": "ORGANICO"
