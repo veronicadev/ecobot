@@ -13,11 +13,16 @@ public class DateUtils {
         return dayNames[day];
     }
 
-    public static int addDay(int amout, Date date){
-        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-        c.setTime(date);
-        c.add(Calendar.DATE, amout);
-        return c.get(Calendar.DAY_OF_WEEK);
+    public static String getMonthName(int month, Locale locale) {
+        DateFormatSymbols symbols = new DateFormatSymbols(locale);
+        String[] monthNames = symbols.getMonths();
+        return monthNames[month];
     }
 
+    public static Calendar addDay(int amount, Date date){
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+        c.setTime(date);
+        c.add(Calendar.DATE, amount);
+        return c;
+    }
 }
