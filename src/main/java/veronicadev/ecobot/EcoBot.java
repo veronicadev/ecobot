@@ -151,8 +151,8 @@ public class EcoBot extends TelegramLongPollingBot {
                     for(TrashContainer t: area.getWeekCalendar()) {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
                         stringBuilder.append("→ ").append(" *").append(dayName).append("*: \n");
-                        stringBuilder.append("  ").append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                        stringBuilder.append("  _").append(t.getHoursRange()).append("_ \n");
+                        stringBuilder.append("     ").append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                        stringBuilder.append("     _").append(t.getHoursRange()).append("_ \n\n");
                     }
                 }
                 sendMessagerequest.setText(stringBuilder.toString());
