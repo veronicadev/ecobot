@@ -219,7 +219,8 @@ public class EcoBot extends TelegramLongPollingBot {
                         List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
                         if(!trashContainerList.isEmpty()){
                             for (TrashContainer t: trashContainerList) {
-                                stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
+                                stringBuilder.append("\uD83D\uDDD1️").append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                                stringBuilder.append("\uD83D\uDD51 ").append("_").append(t.getHoursRange()).append("_\n");
                             }
                         }else{
                             stringBuilder.append("Nessun ritiro");
@@ -240,7 +241,6 @@ public class EcoBot extends TelegramLongPollingBot {
 
         return response;
     }
-
 
     private void getTomorrow(String areaName, String chatId){
         SendMessage sendMessagerequest = new SendMessage();
