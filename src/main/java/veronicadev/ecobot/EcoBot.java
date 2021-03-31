@@ -46,6 +46,9 @@ public class EcoBot extends TelegramLongPollingBot {
                     case "/getarea":
                         performGetAreaMenu(chatId, "getarea");
                     break;
+                    case "/ecocentro":
+                        performEcocentro(chatId);
+                    break;
                 }
             }
         }else if(update.hasCallbackQuery()){
@@ -64,6 +67,28 @@ public class EcoBot extends TelegramLongPollingBot {
                 }
             }
         }
+    }
+
+    public Message performEcocentro(String chatId){
+        StringBuilder stringBuilder = new StringBuilder();
+        DataManager dataManager = DataManager.getInstance();
+        String cityName = dataManager.getMunicipalityName();
+        RecyclingDepot rd = dataManager.getRecyclingDepot();
+        stringBuilder.append("\uD83C\uDFE1 Ecocentro di ").append(cityName).append("\uD83C\uDFE1").append("\n\n");
+        stringBuilder.append("\uD83D\uDD50 Orario \uD83D\uDD50 \n").append(rd.getTime()).append("\n\n");
+        stringBuilder.append("\uD83D\uDCED Indirizzo \uD83D\uDCED \n").append(rd.getAddress()).append("\n\n");
+        stringBuilder.append("☎️ Telefono  ☎️ \n").append(rd.getTelephone()).append("\n\n");
+        SendMessage sendMessagerequest = new SendMessage();
+        sendMessagerequest.setChatId(chatId);
+        sendMessagerequest.setText(stringBuilder.toString());
+        sendMessagerequest.enableMarkdown(true);
+        Message response = null;
+        try {
+            response = execute(sendMessagerequest);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 
     public Message performStart(String chatId){
@@ -121,13 +146,11 @@ public class EcoBot extends TelegramLongPollingBot {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("♻️").append(areaName).append("♻️\n");
                 stringBuilder.append(area.getAddressedTo()).append("\n\n");
-                stringBuilder.append("**Calendario**\n");
+                stringBuilder.append("*Calendario*\n");
                 if(area.getWeekCalendar().size()>0){
                     for(TrashContainer t: area.getWeekCalendar()) {
                         String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
-                        System.out.println(dayName);
-                        System.out.println(t.getType().getName());
-                        stringBuilder.append(dayName).append(": ").append(t.getType().getName()).append("\n");
+                        stringBuilder.append(dayName).append(": ").append(TrashType.valueOf(t.getType()).getName()).append("\n");
                     }
                 }
                 sendMessagerequest.setText(stringBuilder.toString());
@@ -151,19 +174,19 @@ public class EcoBot extends TelegramLongPollingBot {
         List<Area> areasFiltered = DataManager.getInstance().getAreas().stream().filter(a -> a.getName().equals(areaName)).collect(Collectors.toList());
         if(!areasFiltered.isEmpty()){
 
-
             int dayOfTheWeek = DateUtils.addDay(1, new Date());
             String dayName = DateUtils.getDayName(dayOfTheWeek, Locale.ITALY);
 
             if(areasFiltered.get(0)!=null){
-                System.out.println(dayOfTheWeek);
                 TrashContainer t = DataManager.getInstance().findByDay(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("♻️").append(areaName).append("♻️\n Domani ").append(dayName).append(": \n");
                 if(t!=null){
-                    sendMessagerequest.setText("♻️"+areaName+"  ♻️\n Domani "+dayName+": \n"+t.getType().getName()+" \n"+t.getHoursRange());
+                    stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
                 }else{
-                    sendMessagerequest.setText("♻️"+areaName+"  ♻️\n Domani "+dayName+": Niente");
+                    stringBuilder.append("Nessun ritiro");
                 }
-
+                sendMessagerequest.setText(stringBuilder.toString());
             }
         }else{
             sendMessagerequest.setText("Area non disponibile");

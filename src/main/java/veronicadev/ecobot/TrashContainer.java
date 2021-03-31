@@ -2,7 +2,7 @@ package veronicadev.ecobot;
 
 public class TrashContainer {
     private String day;
-    private TrashType type;
+    private String type;
     private String hoursRange;
 
     public String getDay() {
@@ -13,11 +13,11 @@ public class TrashContainer {
         this.day = day;
     }
 
-    public TrashType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(TrashType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
