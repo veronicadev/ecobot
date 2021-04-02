@@ -1,12 +1,13 @@
-package veronicadev.ecobot;
+package veronicadev.ecobot.models;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Area {
     private String name;
     private String streets;
     private String addressedTo;
-    private ArrayList<TrashContainer> weekCalendar;
+
+    private List<AreaCalendar> areaCalendar;
 
     public String getName() {
         return name;
@@ -32,11 +33,11 @@ public class Area {
         this.addressedTo = addressedTo;
     }
 
-    public ArrayList<TrashContainer> getWeekCalendar() {
-        return weekCalendar;
+    public List<AreaCalendar> getWeekCalendar() {
+        return areaCalendar;
     }
 
-    public void setWeekCalendar(ArrayList<TrashContainer> weekCalendar) {
-        this.weekCalendar = weekCalendar;
+    public void setWeekCalendar(List<AreaCalendar> areaCalendar) {
+        this.areaCalendar = areaCalendar;
     }
 }

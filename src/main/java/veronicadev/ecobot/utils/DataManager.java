@@ -1,7 +1,11 @@
-package veronicadev.ecobot;
+package veronicadev.ecobot.utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import veronicadev.ecobot.models.Area;
+import veronicadev.ecobot.models.AreaCalendar;
+import veronicadev.ecobot.models.RecyclingDepot;
+import veronicadev.ecobot.models.TrashContainer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -81,31 +85,40 @@ public class DataManager {
         return recyclingDepot;
     }
 
-    private static ArrayList<TrashContainer> getWeekCalendar(JSONObject areaJson){
-        ArrayList<TrashContainer> week = new ArrayList<>();
+    private static List<AreaCalendar> getWeekCalendar(JSONObject areaJson){
+        List<AreaCalendar> list = new ArrayList<>();
         if(areaJson.has("weekCalendar")){
-            JSONArray weekCalendarJson = areaJson.getJSONArray("weekCalendar");
-            for (Object w: weekCalendarJson) {
-                JSONObject weekJson = (JSONObject) w;
-                TrashContainer trashContainer = new TrashContainer();
-                trashContainer.setDay(weekJson.getString("day"));
-                trashContainer.setType(weekJson.getString("type"));
-                if(weekJson.has("hoursRange")){
-                    trashContainer.setHoursRange(weekJson.getString("hoursRange"));
+            JSONArray weekCalendarJSON = areaJson.getJSONArray("weekCalendar");
+            for (Object w:weekCalendarJSON ) {
+                JSONObject weekJSON = (JSONObject) w;
+                JSONArray containersJSON = weekJSON.getJSONArray("containers");
+                ArrayList<TrashContainer> containers = new ArrayList<>();
+                for (Object c: containersJSON) {
+                    JSONObject cJSON = (JSONObject) c;
+                    TrashContainer trashContainer = new TrashContainer();
+                    trashContainer.setType(cJSON.getString("type"));
+                    if(cJSON.has("hoursRange")){
+                        trashContainer.setHoursRange(cJSON.getString("hoursRange"));
+                    }
+                    containers.add(trashContainer);
                 }
-                week.add(trashContainer);
+                AreaCalendar areaCalendar = new AreaCalendar();
+                areaCalendar.setContainers(containers);
+                areaCalendar.setDay(weekJSON.getString("day"));
+                list.add(areaCalendar);
             }
+
         }
-        return week;
+        return list;
     }
 
-    public TrashContainer findContainer(String day, Area area){
-        for (TrashContainer trashContainer: area.getWeekCalendar()) {
-            if(trashContainer.getDay().equals(day)){
-                return trashContainer;
+    public List<TrashContainer> findContainers(String day, Area area){
+        for (AreaCalendar areaCalendar : area.getWeekCalendar()) {
+            if(areaCalendar.getDay().equals(day)){
+                return areaCalendar.getContainers();
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public String getMunicipalityName() {

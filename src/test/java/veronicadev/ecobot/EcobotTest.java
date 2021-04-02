@@ -1,16 +1,8 @@
 package veronicadev.ecobot;
 
 import org.junit.*;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.telegram.abilitybots.api.sender.SilentSender;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import static org.mockito.Mockito.*;
+import veronicadev.ecobot.utils.DataManager;
 
 public class EcobotTest {
 

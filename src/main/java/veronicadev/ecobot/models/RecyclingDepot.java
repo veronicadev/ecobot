@@ -1,4 +1,4 @@
-package veronicadev.ecobot;
+package veronicadev.ecobot.models;
 
 public class RecyclingDepot {
     private String telephone;

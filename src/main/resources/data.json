@@ -7,23 +7,22 @@
   },
   "areas":[
     {
-      "name": "Zona 1",
+      "name": "Zona Centro",
       "streets": "Via Roma, Corso Torino ecc",
       "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
       "weekCalendar":[
         {
-          "day": "1",
-          "type": "ORGANICO",
-          "hoursRange": "Svuotamento cassonetto dalle ore 7"
-        },
-        {
           "day": "2",
-          "type": "CARTA",
-          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
-        },
-        {
-          "day": "3",
-          "type": "CARTA"
+          "containers": [
+            {
+              "type": "ORGANICO",
+              "hoursRange": "Svuotamento cassonetto dalle ore 7"
+            },
+            {
+              "type": "CARTA",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
         }
       ]
     },
@@ -34,18 +33,113 @@
       "weekCalendar":[
         {
           "day": "5",
-          "type": "INDIFFERENZIATO",
-          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+          "containers": [
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            },
+            {
+              "type": "CARTA",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
         },
+
         {
           "day": "6",
-          "type": "PLASTICA_LATTINE",
-          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+          "containers": [
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
         },
         {
           "day": "7",
-          "type": "VERDE",
-          "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+          "containers": [
+            {
+              "type": "VERDE",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zona 3",
+      "streets": "Via Roma, Corso Torino ecc",
+      "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+      "weekCalendar":[
+        {
+          "day": "5",
+          "containers": [
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            },
+            {
+              "type": "CARTA",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        },
+
+        {
+          "day": "6",
+          "containers": [
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        },
+        {
+          "day": "7",
+          "containers": [
+            {
+              "type": "VERDE",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zona 4",
+      "streets": "Via Roma, Corso Torino ecc",
+      "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+      "weekCalendar":[
+        {
+          "day": "5",
+          "containers": [
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            },
+            {
+              "type": "CARTA",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        },
+
+        {
+          "day": "6",
+          "containers": [
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        },
+        {
+          "day": "7",
+          "containers": [
+            {
+              "type": "VERDE",
+              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
         }
       ]
     }

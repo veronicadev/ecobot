@@ -1,10 +1,7 @@
 package veronicadev.ecobot;
 
-import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.telegram.abilitybots.api.bot.AbilityBot;
-import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -14,8 +11,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import veronicadev.ecobot.models.Area;
+import veronicadev.ecobot.models.RecyclingDepot;
+import veronicadev.ecobot.models.TrashContainer;
+import veronicadev.ecobot.utils.DataManager;
+import veronicadev.ecobot.utils.DateUtils;
+import veronicadev.ecobot.utils.TrashType;
 
-import java.text.DateFormatSymbols;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -113,8 +115,15 @@ public class EcoBot extends TelegramLongPollingBot {
 
     public Message performInfo(String chatId){
         SendMessage sendMessagerequest = new SendMessage();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Ciao, sono EcoBot qui sotto sono elencati i comandi che puoi usare \n\n");
+        stringBuilder.append("/ecocentro - Informazioni riguardo l'ecocentro (orario, indirizzo e telefono) \n");
+        stringBuilder.append("/getarea - Informazioni e calendario riguardo una specifica zona selezionata dall'utente \n");
+        stringBuilder.append("/tomorrow - Indica che tipo di rifiuto viene raccolto domani \n");
+        stringBuilder.append("/calendar - Mostra il calendario dei prossimi 7 giorni di una specifica zona \n");
+        stringBuilder.append("/info - Informazioni di Ecobot \n\n");
         sendMessagerequest.setChatId(chatId);
-        sendMessagerequest.setText("Questa è la lista di comandi che puoi usare...TODO");
+        sendMessagerequest.setText(stringBuilder.toString());
         sendMessagerequest.enableMarkdown(true);
         Message response = null;
         try {
@@ -152,13 +161,20 @@ public class EcoBot extends TelegramLongPollingBot {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("♻️").append(areaName).append("♻️\n\n");
                 stringBuilder.append(area.getAddressedTo()).append("\n\n");
-                stringBuilder.append("*CALENDARIO*\n\n");
+                stringBuilder.append("*CALENDARIO*");
                 if(area.getWeekCalendar().size()>0){
-                    for(TrashContainer t: area.getWeekCalendar()) {
-                        String dayName =  DateUtils.getDayName(Integer.valueOf(t.getDay()), Locale.ITALY);
-                        stringBuilder.append("\uD83D\uDDD3️").append(" *").append(dayName).append("*: \n");
-                        stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                        stringBuilder.append("_").append(t.getHoursRange()).append("_ \n\n");
+                    for (int i = 1; i <=7 ; i++) {
+                        List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(i), areasFiltered.get(0));
+                        String dayName = DateUtils.getDayName(i, Locale.ITALY);
+                        stringBuilder.append("\n\n").append("\uD83D\uDDD3️").append(" *").append(dayName).append("*: \n");
+                        if(!trashContainerList.isEmpty()){
+                            for (TrashContainer t: trashContainerList) {
+                                stringBuilder.append("\uD83D\uDDD1️").append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                                stringBuilder.append("\uD83D\uDD51 ").append("_").append(t.getHoursRange()).append("_\n");
+                            }
+                        }else{
+                            stringBuilder.append("Nessun ritiro");
+                        }
                     }
                 }
                 sendMessagerequest.setText(stringBuilder.toString());
@@ -175,7 +191,6 @@ public class EcoBot extends TelegramLongPollingBot {
 
         return response;
     }
-
 
     public Message getCalendar(String areaName, String chatId){
         SendMessage sendMessagerequest = new SendMessage();
@@ -200,15 +215,16 @@ public class EcoBot extends TelegramLongPollingBot {
                         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
                         int month =calendar.get(Calendar.MONTH);
                         String monthName = DateUtils.getMonthName(month, Locale.ITALY);
-                        TrashContainer t = DataManager.getInstance().findContainer(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
-
                         stringBuilder.append("\n\n").append("\uD83D\uDDD3️").append(" *").append(dayOfMonth).append(" ").append(monthName).append("*: \n");
 
-                        if(t==null){
-                            stringBuilder.append("Nessun ritiro");
+                        List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+                        if(!trashContainerList.isEmpty()){
+                            for (TrashContainer t: trashContainerList) {
+                                stringBuilder.append("\uD83D\uDDD1️").append(TrashType.valueOf(t.getType()).getName()).append("\n");
+                                stringBuilder.append("\uD83D\uDD51 ").append("_").append(t.getHoursRange()).append("_\n");
+                            }
                         }else{
-                            stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n");
-                            stringBuilder.append("_").append(t.getHoursRange()).append("_ ");
+                            stringBuilder.append("Nessun ritiro");
                         }
                     }
                 }
@@ -227,7 +243,6 @@ public class EcoBot extends TelegramLongPollingBot {
         return response;
     }
 
-
     private void getTomorrow(String areaName, String chatId){
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
@@ -238,11 +253,14 @@ public class EcoBot extends TelegramLongPollingBot {
             String dayName = DateUtils.getDayName(dayOfTheWeek, Locale.ITALY);
 
             if(areasFiltered.get(0)!=null){
-                TrashContainer t = DataManager.getInstance().findContainer(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+                List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(dayOfTheWeek), areasFiltered.get(0));
+
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("♻️").append(areaName).append("♻️\n\n Domani ").append(dayName).append(": \n");
-                if(t!=null){
-                    stringBuilder.append(TrashType.valueOf(t.getType()).getName()).append("\n\n").append("\uD83D\uDD51 ").append(t.getHoursRange());
+                stringBuilder.append("♻️").append(areaName).append("♻️\n\n Domani ").append(dayName).append(":").append("\n");
+                if(!trashContainerList.isEmpty()){
+                    for (TrashContainer t: trashContainerList) {
+                        stringBuilder.append("\uD83D\uDDD1️").append(TrashType.valueOf(t.getType()).getName()).append("\n").append("\uD83D\uDD51 ").append(t.getHoursRange()).append("\n\n");
+                    }
                 }else{
                     stringBuilder.append("Nessun ritiro");
                 }
@@ -266,19 +284,21 @@ public class EcoBot extends TelegramLongPollingBot {
         execute(answerCallbackQuery);
     }
 
-    private InlineKeyboardMarkup getAreasMenu(String callbackName){
+    public static InlineKeyboardMarkup getAreasMenu(String callbackName){
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+        List<Area> areas = DataManager.getInstance().getAreas();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-        List<InlineKeyboardButton> rowInline = new ArrayList<>();
-
-        for (Area a: DataManager.getInstance().getAreas()) {
-            InlineKeyboardButton button = new InlineKeyboardButton();
-            button.setText(a.getName());
-            button.setCallbackData(callbackName.concat(":").concat(a.getName()));
-            rowInline.add(button);
+        if(areas.size()>0) {
+            for (Area area : areas) {
+                List<InlineKeyboardButton> riga = new ArrayList<>();
+                InlineKeyboardButton button = new InlineKeyboardButton();
+                String name = area.getName();
+                button.setText(name);
+                button.setCallbackData(callbackName.concat(":").concat(name));
+                riga.add(button);
+                rowsInline.add(riga);
+            }
         }
-
-        rowsInline.add(rowInline);
 
         markupInline.setKeyboard(rowsInline);
 

@@ -1,17 +1,8 @@
-package veronicadev.ecobot;
+package veronicadev.ecobot.models;
 
 public class TrashContainer {
-    private String day;
     private String type;
     private String hoursRange;
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
-    }
 
     public String getType() {
         return type;
