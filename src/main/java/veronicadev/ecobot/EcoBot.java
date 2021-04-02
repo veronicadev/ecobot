@@ -284,31 +284,19 @@ public class EcoBot extends TelegramLongPollingBot {
         execute(answerCallbackQuery);
     }
 
-    private InlineKeyboardMarkup getAreasMenu(String callbackName){
+    public static InlineKeyboardMarkup getAreasMenu(String callbackName){
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
-        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<Area> areas = DataManager.getInstance().getAreas();
-        int TOTAL_COLUMNS = 3;
-        if(areas.size()>0){
-            int counter = 0;
-            int rows = (int) Math.ceil(areas.size()/TOTAL_COLUMNS);
-            for (int r = 0; r < rows; r++) {
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        if(areas.size()>0) {
+            for (Area area : areas) {
                 List<InlineKeyboardButton> riga = new ArrayList<>();
-                int cols = TOTAL_COLUMNS;
-                int resto = areas.size()%TOTAL_COLUMNS;
-                if(resto!=0){
-                    cols = resto;
-                }
-                for (int c = 0; c < cols; c++) {
-                    InlineKeyboardButton button = new InlineKeyboardButton();
-                    String name = areas.get(counter).getName();
-                    button.setText(name);
-                    button.setCallbackData(callbackName.concat(":").concat(name));
-                    riga.add(button);
-                    counter++;
-                }
+                InlineKeyboardButton button = new InlineKeyboardButton();
+                String name = area.getName();
+                button.setText(name);
+                button.setCallbackData(callbackName.concat(":").concat(name));
+                riga.add(button);
                 rowsInline.add(riga);
-
             }
         }
 
