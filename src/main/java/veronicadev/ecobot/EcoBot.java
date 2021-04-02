@@ -1,10 +1,7 @@
 package veronicadev.ecobot;
 
-import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.telegram.abilitybots.api.bot.AbilityBot;
-import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -14,8 +11,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import veronicadev.ecobot.models.Area;
+import veronicadev.ecobot.models.RecyclingDepot;
+import veronicadev.ecobot.models.TrashContainer;
+import veronicadev.ecobot.utils.DataManager;
+import veronicadev.ecobot.utils.DateUtils;
+import veronicadev.ecobot.utils.TrashType;
 
-import java.text.DateFormatSymbols;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -190,7 +192,6 @@ public class EcoBot extends TelegramLongPollingBot {
         return response;
     }
 
-
     public Message getCalendar(String areaName, String chatId){
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
@@ -286,16 +287,30 @@ public class EcoBot extends TelegramLongPollingBot {
     private InlineKeyboardMarkup getAreasMenu(String callbackName){
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+        List<Area> areas = DataManager.getInstance().getAreas();
+        int TOTAL_COLUMNS = 3;
+        if(areas.size()>0){
+            int counter = 0;
+            int rows = (int) Math.ceil(areas.size()/TOTAL_COLUMNS);
+            for (int r = 0; r < rows; r++) {
+                List<InlineKeyboardButton> riga = new ArrayList<>();
+                int cols = TOTAL_COLUMNS;
+                int resto = areas.size()%TOTAL_COLUMNS;
+                if(resto!=0){
+                    cols = resto;
+                }
+                for (int c = 0; c < cols; c++) {
+                    InlineKeyboardButton button = new InlineKeyboardButton();
+                    String name = areas.get(counter).getName();
+                    button.setText(name);
+                    button.setCallbackData(callbackName.concat(":").concat(name));
+                    riga.add(button);
+                    counter++;
+                }
+                rowsInline.add(riga);
 
-        for (Area a: DataManager.getInstance().getAreas()) {
-            InlineKeyboardButton button = new InlineKeyboardButton();
-            button.setText(a.getName());
-            button.setCallbackData(callbackName.concat(":").concat(a.getName()));
-            rowInline.add(button);
+            }
         }
-
-        rowsInline.add(rowInline);
 
         markupInline.setKeyboard(rowsInline);
 

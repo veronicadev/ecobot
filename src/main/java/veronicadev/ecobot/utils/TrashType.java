@@ -1,4 +1,4 @@
-package veronicadev.ecobot;
+package veronicadev.ecobot.utils;
 
 public enum TrashType {
     ORGANICO("ORGANICO", "Organico"),

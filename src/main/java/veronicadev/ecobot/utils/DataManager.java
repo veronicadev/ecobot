@@ -1,7 +1,11 @@
-package veronicadev.ecobot;
+package veronicadev.ecobot.utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import veronicadev.ecobot.models.Area;
+import veronicadev.ecobot.models.AreaCalendar;
+import veronicadev.ecobot.models.RecyclingDepot;
+import veronicadev.ecobot.models.TrashContainer;
 
 import java.io.*;
 import java.util.ArrayList;
