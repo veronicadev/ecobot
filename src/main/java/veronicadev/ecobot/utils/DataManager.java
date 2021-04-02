@@ -2,6 +2,9 @@ package veronicadev.ecobot.utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import veronicadev.ecobot.Application;
 import veronicadev.ecobot.models.Area;
 import veronicadev.ecobot.models.AreaCalendar;
 import veronicadev.ecobot.models.RecyclingDepot;
@@ -12,12 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataManager {
+    private static Logger logger = LoggerFactory.getLogger(DataManager.class);
     private static DataManager dataManager = null;
     private static String municipalityName;
     private static RecyclingDepot recyclingDepot;
     private static List<Area> areas = new ArrayList<>();
     private DataManager(){}
     public static DataManager getInstance(){
+        logger.info("** DataManager getting instance **");
         if(dataManager ==null){
             dataManager = new DataManager();
         }
@@ -26,12 +31,11 @@ public class DataManager {
 
     @SuppressWarnings("unchecked")
     public JSONObject readJSON(String path){
-        System.out.println("** Retrieving data init **");
+        logger.info("** DataManager retrieving data init **");
         JSONObject obj = null;
         InputStream input = DataManager.class.getClassLoader().getResourceAsStream(path);
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
-            //Read JSON file
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -39,15 +43,17 @@ public class DataManager {
             }
             obj = new JSONObject(sb.toString());
             areas = getAreasFromJSON(obj);
-            System.out.println(areas);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            logger.error("** Catched FileNotFoundException in DataManager.readJSON **", e);
         }  catch (IOException e) {
             e.printStackTrace();
+            logger.error("** Catched IOException in DataManager.readJSON **", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("** Catched Exception in DataManager.readJSON **", e);
         }
-        System.out.println("** Retrieving data end **");
+        logger.info("** DataManager retrieving data end **");
         return obj;
     }
 
@@ -69,23 +75,25 @@ public class DataManager {
                 areas.add(area);
             }
         }else{
-            throw new Exception("Expected field 'areas' in Data.json");
+            throw new Exception("Expected field 'areas' in data.json");
         }
         return areas;
     }
 
-    private static RecyclingDepot getRecyclingDepotFromJSON(JSONObject jsonFile){
+    private static RecyclingDepot getRecyclingDepotFromJSON(JSONObject jsonFile) throws Exception{
         RecyclingDepot recyclingDepot = new RecyclingDepot();
         if(jsonFile.has("recyclingDepot")){
             JSONObject rd = jsonFile.getJSONObject("recyclingDepot");
             recyclingDepot.setAddress(rd.getString("address"));
             recyclingDepot.setTime(rd.getString("time"));
             recyclingDepot.setTelephone(rd.getString("telephone"));
+        }else{
+            throw new Exception("Expected field 'recyclingDepot' in data.json");
         }
         return recyclingDepot;
     }
 
-    private static List<AreaCalendar> getWeekCalendar(JSONObject areaJson){
+    private static List<AreaCalendar> getWeekCalendar(JSONObject areaJson) throws Exception {
         List<AreaCalendar> list = new ArrayList<>();
         if(areaJson.has("weekCalendar")){
             JSONArray weekCalendarJSON = areaJson.getJSONArray("weekCalendar");
@@ -107,7 +115,8 @@ public class DataManager {
                 areaCalendar.setDay(weekJSON.getString("day"));
                 list.add(areaCalendar);
             }
-
+        }else{
+            throw new Exception("Expected field 'weekCalendar' in data.json");
         }
         return list;
     }

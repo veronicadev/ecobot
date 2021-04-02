@@ -16,6 +16,7 @@ import veronicadev.ecobot.models.RecyclingDepot;
 import veronicadev.ecobot.models.TrashContainer;
 import veronicadev.ecobot.utils.DataManager;
 import veronicadev.ecobot.utils.DateUtils;
+import veronicadev.ecobot.utils.Messages;
 import veronicadev.ecobot.utils.TrashType;
 
 import java.util.*;
@@ -29,13 +30,13 @@ public class EcoBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        logger.info("** EcoBot onUpdateReceived init **");
         if(update.hasMessage()){
             Message message = update.getMessage();
-
             if(message.hasText()){
                 String input = message.getText();
                 String chatId = message.getChatId().toString();
-                logger.info(input);
+                logger.info("** EcoBot getText: " + input +  " **");
                 switch(input){
                     case "/start":
                         performStart(chatId);
@@ -60,7 +61,7 @@ public class EcoBot extends TelegramLongPollingBot {
         }else if(update.hasCallbackQuery()){
             CallbackQuery callbackquery = update.getCallbackQuery();
             String[] data = callbackquery.getData().split(":");
-
+            logger.info("** EcoBot getCallbackQuery: " + callbackquery.getData() +  " **");
             if(data[0].equals("tomorrow")){
                 this.getTomorrow(data[1], callbackquery.getMessage().getChatId().toString());
             }else if(data[0].equals("getarea")){
@@ -75,6 +76,7 @@ public class EcoBot extends TelegramLongPollingBot {
                 }
             }
         }
+        logger.info("** EcoBot onUpdateReceived end **");
     }
 
     public Message performEcocentro(String chatId){
@@ -100,6 +102,7 @@ public class EcoBot extends TelegramLongPollingBot {
     }
 
     public Message performStart(String chatId){
+        logger.info("** EcoBot performStart init **");
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
         sendMessagerequest.setText("Ciao, sono EcoBot \uD83D\uDE9B ! Usa i comandi per chiedermi informazioni riguardo il calendario della raccolta differenziata della tua città! ♻️Usa `/info` per sapere quali comandi puoi usare");
@@ -110,10 +113,12 @@ public class EcoBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+        logger.info("** EcoBot performStart end **");
         return response;
     }
 
     public Message performInfo(String chatId){
+        logger.info("** EcoBot performInfo init **");
         SendMessage sendMessagerequest = new SendMessage();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Ciao, sono EcoBot qui sotto sono elencati i comandi che puoi usare \n\n");
@@ -131,13 +136,15 @@ public class EcoBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+        logger.info("** EcoBot performInfo end **");
         return response;
     }
 
     public Message performGetAreaMenu(String chatId, String callbackName){
+        logger.info("** EcoBot performGetAreaMenu init **");
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
-        sendMessagerequest.setText("Scegli l'area interessata");
+        sendMessagerequest.setText(Messages.CHOOSE_AREA);
         sendMessagerequest.enableMarkdown(true);
         sendMessagerequest.setReplyMarkup(this.getAreasMenu(callbackName));
         Message response = null;
@@ -146,10 +153,12 @@ public class EcoBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+        logger.info("** EcoBot performGetAreaMenu end **");
         return response;
     }
 
     public Message getAreaData(String areaName, String chatId){
+        logger.info("** EcoBot getAreaData init **");
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
         Message response = null;
@@ -161,7 +170,7 @@ public class EcoBot extends TelegramLongPollingBot {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("♻️").append(areaName).append("♻️\n\n");
                 stringBuilder.append(area.getAddressedTo()).append("\n\n");
-                stringBuilder.append("*CALENDARIO*");
+                stringBuilder.append(Messages.CALENDAR);
                 if(area.getWeekCalendar().size()>0){
                     for (int i = 1; i <=7 ; i++) {
                         List<TrashContainer> trashContainerList = DataManager.getInstance().findContainers(String.valueOf(i), areasFiltered.get(0));
@@ -173,7 +182,7 @@ public class EcoBot extends TelegramLongPollingBot {
                                 stringBuilder.append("\uD83D\uDD51 ").append("_").append(t.getHoursRange()).append("_\n");
                             }
                         }else{
-                            stringBuilder.append("Nessun ritiro");
+                            stringBuilder.append(Messages.NO_TAKING);
                         }
                     }
                 }
@@ -181,18 +190,19 @@ public class EcoBot extends TelegramLongPollingBot {
                 sendMessagerequest.setParseMode("Markdown");
             }
         }else{
-            sendMessagerequest.setText("Area non disponibile");
+            sendMessagerequest.setText(Messages.AREA_NOT_AVAILABLE);
         }
         try {
             response = execute(sendMessagerequest);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-
+        logger.info("** EcoBot getAreaData end **");
         return response;
     }
 
     public Message getCalendar(String areaName, String chatId){
+        logger.info("** EcoBot getCalendar init **");
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
         Message response = null;
@@ -206,7 +216,7 @@ public class EcoBot extends TelegramLongPollingBot {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("♻️").append(areaName).append("♻️\n\n");
                 stringBuilder.append(area.getAddressedTo()).append("\n\n");
-                stringBuilder.append("*CALENDARIO PER PROSSIMI 7 GIORNI*");
+                stringBuilder.append(Messages.CALENDAR_NEXT_7_DAYS);
 
                 if(area.getWeekCalendar().size()>0){
                     for(int day=1; day<=7; day++){
@@ -224,7 +234,7 @@ public class EcoBot extends TelegramLongPollingBot {
                                 stringBuilder.append("\uD83D\uDD51 ").append("_").append(t.getHoursRange()).append("_\n");
                             }
                         }else{
-                            stringBuilder.append("Nessun ritiro");
+                            stringBuilder.append(Messages.NO_TAKING);
                         }
                     }
                 }
@@ -232,18 +242,19 @@ public class EcoBot extends TelegramLongPollingBot {
                 sendMessagerequest.setParseMode("Markdown");
             }
         }else{
-            sendMessagerequest.setText("Area non disponibile");
+            sendMessagerequest.setText(Messages.AREA_NOT_AVAILABLE);
         }
         try {
             response = execute(sendMessagerequest);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-
+        logger.info("** EcoBot getCalendar end **");
         return response;
     }
 
     private void getTomorrow(String areaName, String chatId){
+        logger.info("** EcoBot getTomorrow init **");
         SendMessage sendMessagerequest = new SendMessage();
         sendMessagerequest.setChatId(chatId);
         List<Area> areasFiltered = DataManager.getInstance().getAreas().stream().filter(a -> a.getName().equals(areaName)).collect(Collectors.toList());
@@ -262,18 +273,19 @@ public class EcoBot extends TelegramLongPollingBot {
                         stringBuilder.append("\uD83D\uDDD1️").append(TrashType.valueOf(t.getType()).getName()).append("\n").append("\uD83D\uDD51 ").append(t.getHoursRange()).append("\n\n");
                     }
                 }else{
-                    stringBuilder.append("Nessun ritiro");
+                    stringBuilder.append(Messages.NO_TAKING);
                 }
                 sendMessagerequest.setText(stringBuilder.toString());
             }
         }else{
-            sendMessagerequest.setText("Area non disponibile");
+            sendMessagerequest.setText(Messages.AREA_NOT_AVAILABLE);
         }
         try {
             execute(sendMessagerequest);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+        logger.info("** EcoBot getTomorrow end **");
     }
 
     private void sendAnswerCallbackQuery(String text, boolean alert, CallbackQuery callbackquery) throws TelegramApiException{
