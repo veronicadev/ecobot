@@ -8,7 +8,7 @@
   "areas":[
     {
       "name": "Zona Centro",
-      "streets": "Via Roma, Corso Torino ecc",
+      "streets": "piazzetta Adorni, largo Benedetto Alfieri, corso Alfieri (dai numeri 2/19 ai numeri 422/391), piazza Alfieri, via Aliberti, vicolo Anfossi, via Antica Zecca, galleria Argenta, via Asinari, piazza Astesano, via Astesano,.via Balbo, via Battisti, via F. Berruti, via Bonzanigo, via Borgnini, via Botallo, via Brofferio, via A. Bruno, via Buon Pastore, via Cafasso, piazza Cagni, piazza Cairoli, via Cantore, via dei Cappellai, via Caracciolo, via Carducci, via del Carmine, via al Castello, piazza Castigliano, piazza Catena, piazza Cattedrale, via Cattedrale, vicolo Cavalieri di Malta, vicolo Cavalleri, via Cavour, vicolo Cocchis, via Comentina, via Nino Costa, via Cotta, via Cotti Ceres, via Massimo D’Azeglio, via De Amicis, via De Gasperi, vai De Rolandis, via Della Valle, via Dorna, corso Einaudi (dal numero 2 al numero 80), via Emanuele Filiberto, via Gabiani, via Gardini, via Garetti, via Garibaldi, via Giobert, vicolo G.B. Giuliani, via Gobetti, via Goltieri, piazza G. Goria, via C. L. Grandi, vie delle Grazie, via Hope, via Incisa, via Isnardi, piazza Italia, piazza Libertà, via Malabayla, via Mameli, via Martorelli, via Cardinal Massaia, via Mazzini, piazza Medici, galleria dei Mercanti, via Milliavacca, vicolo Majolo, piazza Milena, piazzetta Montafia, via Montebruno, vicolo Monticone, via Morelli, via Natta, via Orfanotrofio, via Ospedale, via Ottolenghi, via Palazzo di Città, via Panigarola, via Pascoli (fino ai numeri 17/30), via Pelletta, piazza Piemonte, vicolo Pittarelli, via Matteo Prandone, via Radicati, via Ranco, via Repubblica Astese, via Ricciardi, vicolo Riva, via Roccavione, via Roero, piazza Roma, via Fratelli Rosselli, via Mons. Umberto Rossi, via Rossini, piazzetta San Brunone, via San Giovanni Bosco, vicolo Santa Cecilia, piazza Santa Maria Nuova, piazza San Martino, via San Martino, piazza San Paolo, via San Quirico, piazza San Secondo, via San Secondo, via San Silvestro, piazzetta Santo Stefano, via San Giovanni, via San Gottardo, Largo Scapaccino, via Scarampi, via Quintino Sella, piazzetta del Seminario, via del Soccorso, via Solari, piazza Statuto, via Teatro Alfieri, via Testa, via Turchi, vicolo Valbrenta, piazzetta dei Varroni, via del Varrone, via Vassallo, viale alla Vittoria, via XX Settembre, via Zangrandi.",
       "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
       "weekCalendar":[
         {
@@ -16,11 +16,96 @@
           "containers": [
             {
               "type": "ORGANICO",
-              "hoursRange": "Svuotamento cassonetto dalle ore 7"
+              "hoursRange": "svuotamento cassonetto dalle ore 7"
             },
             {
               "type": "CARTA",
               "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        },
+        {
+          "day": "3",
+          "containers": [
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "svuotamento cassonetto dalle 7"
+            },
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "esposizione sacchetto su strada comunale dalle 19 alle 20,30"
+            }
+          ]
+        },
+        {
+          "day": "4",
+          "containers": [
+            {
+              "type": "VETRO",
+              "hoursRange": "svuotamento cassonetto dalle 7"
+            }
+          ]
+        },
+        {
+          "day": "5",
+          "containers": [
+            {
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle ore 7"
+            }
+          ]
+        },
+        {
+          "day": "6",
+          "containers": [
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "svuotamento cassonetto dalle ore 7"
+            },
+            {
+              "type": "VERDE",
+              "hoursRange": "esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zona 1",
+      "streets": "Via 101.ma Brigata Garibaldi, strada Abbazia Apostoli, strada Bialera, strada Margherita, via Adda, via Adige, via agli Orti, via al Mulino, via del Porto, corso Alba (fino ai numeri 276/121), via Amalfi, via Amerio, via Magnani, via Arno, via Badalin, vicolo Baracco, via Belbo, strada Borbore, via Bormida, via A. Bosia, via Bosio, via Bra, via Brenta, via Canelli, via Capuana, via Casalegno, via Ceca, via Cecchin, via Chiuminatti, via Cirio, corso Venezia, via Cuneo, vicolo Pio Domenico, via Dalla Chiesa, via degli Spalti, via dei Bottai, via dei Sellai, via dei Vetrai, via del Barcaiolo, strada delle Quaglie, strada dello Scalo, strada Divisione Langhe, via don Cappello, via don Massaro, via Dora, via Ecclesia, via Esperanto, via A. Ferrero, via Fleming, via Gamba, via Gancia, strada Gazogeno, via Gianotti, via G. Goria, via Isonzo, via Lungotanaro Pescatori, via Lusso, via Masoero, via Mattarella, via Mincio, piazza Nenni, vicolo Nosengo, via Novelli, via Novello, vicolo Allocco, via Ortolani, via Perdomo, via Piave, piazza La Torre, via Pisa, via Po, strada Porta San Giuliano, strada San Bernardino, strada San Carlo, via Sanguanini, strada Santo Spirito, Recinto San Rocco, via Scotti, via Sesia, corso Savona (fino ai numeri 363/270), via Sodano, via Tagliamento, via Terracini, via Tevere, via Ticino, via Torchio, via Trieste, via Trilussa, via Valle, via Versa, via Volturno, piazzetta Stura, via Valledolmo, piazzetta Volontari dell’Alluvione 1994.",
+      "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+      "weekCalendar":[
+        {
+          "day": "2",
+          "containers": [
+            {
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "VERDE",
+              "hoursRange": "esposizione sacchetto su strada comunale entro le 13"
+            }
+          ]
+        },
+        {
+          "day": "5",
+          "containers": [
+            {
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "CARTA",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "esposizione sacchetto su strada comunale entro le 13"
             }
           ]
         }
@@ -28,19 +113,23 @@
     },
     {
       "name": "Zona 2",
-      "streets": "Via Roma, Corso Torino ecc",
+      "streets": "Via Acacie, corso Alessandria (fino ai numeri 332/337), via Allende, strada Aniotto, via Antica Cittadella, via Antico Ippodromo, via Arellano, via Baggio, via Ballario, via Bazzano, via Bigliani, via Boano, via Borello, via Calosso, via Caratti, via Careddu, via Cavanna, corso Casale, via Cendola, via Ciarlone, via Cibrario, via Coppi, via Cora, via Curniel, via Delano, via Delle Corse, via Desderi, via don Berzano, via Dovano, via Fara, via Fasano, via Fenoglio, via G. Ferrero, via Fogliotti, via Fracchia, via Fratelli Cervi, via Gastaldi, corso Genova, via Ginella, via Gino, via Graziano, piazza Primo Maggio, via Fratelli Kennedy, via Lamarmora, via Liguria, via Madre Teresa di Calcutta, via Magenta, vicolo Majolo, via Marchesi, via O. Marchisio, via Martiri Israeliti, via Massa, via Fratelli Metzger, via Montebello, via Monti, via Olof Palme, via Padre Pio, corso Palestro, via Parmetler, via Parri, via Pasolini, via Pavese, via Perroncito, via Piglione, viale Pilone, via Pistarino, via Ponte Verde, strada Praia, via Prasso, via Rasero, via Rocca, strada San Lazzaro, piazza San Pietro, via Salvemini, via Sardegna, via Sismondo, via Solferino, via Spandre, via G. Taricco, via S. Taricco, via Toselli, via Ungaretti, strada Valgera (dai numero 16/13 fino al 41), strada Valmanera, via Valpreda, via Vandiol, via Vayra,  piazzale Vittoria, via Volontari del sangue, via Volpini.",
       "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
       "weekCalendar":[
         {
-          "day": "5",
+          "day": "2",
           "containers": [
             {
-              "type": "INDIFFERENZIATO",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
             },
             {
-              "type": "CARTA",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "VERDE",
+              "hoursRange": "esposizione cassonetto su strada comunale entro le 13"
             }
           ]
         },
@@ -49,17 +138,16 @@
           "day": "6",
           "containers": [
             {
-              "type": "PLASTICA_LATTINE",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
-            }
-          ]
-        },
-        {
-          "day": "7",
-          "containers": [
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
             {
-              "type": "VERDE",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "type": "CARTCA",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "esposizione sacchetto su strada comunale entro le 13"
             }
           ]
         }
@@ -67,38 +155,41 @@
     },
     {
       "name": "Zona 3",
-      "streets": "Via Roma, Corso Torino ecc",
+      "streets": "Largo Martiri della Liberazione, via Amico, via A. Garibaldi*, via Antica Certosa, via dell’Arazzeria, via Argentero, via Ariosto, via Arò, via Aubert, via Auna, via Badino, via Badoni, via Basta, via Baussano, via Bayno, vicolo Belli, via G. Berruti, via Bigatti, via Bocca, via Borelli, via Borsarelli di Rifreddo, via Boschiero, via Bottino, via Cagliero, via Cagna, via Calcaterra, via Cavalla, via Crispi, corso Dante* (fino ai numeri 133/116), via De Canis, strada De Regibus, via del Bosco*, via del Cavallino, via Deledda, via Dettoni, via Dini, via Faa di Bruno, via Fagnano, via Faletti, via Fiume, via Fontana, strada Fortino, via Gambini, via Garbiglia, via Gazelli, via Giovanelli, via Giusta, via Gnocchi, via Gonella, vicolo Gorizia, via P. Grandi, salita Iacopone da Todi, via Lazzarone, via Leopardi, via Lorenzi, via Malta, via Micca, corso Milano, via Monferrato, via Mons. Marello, via Momigliano, via Monte Rainero, via Montersino, via Mussa, via Nebbia, via Nevizzano, via Ottini, via Pagliani, via Pallio, via Palmiero, via Parini, via Pastrone, vicolo Pelizza, via Pellico, via Pia, via Pittatore, via Platone, largo Pronzato, via Provenzale, via Romita, via Ugo Rossi, via Sant’Evasio, via Taglietti, via Tosi, via Treves, via Venosta, via Verdi, corso Volta, via Zara.",
       "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
       "weekCalendar":[
         {
-          "day": "5",
+          "day": "4",
           "containers": [
             {
-              "type": "INDIFFERENZIATO",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
             },
             {
-              "type": "CARTA",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "VERDE",
+              "hoursRange": "esposizione cassonetto su strada comunale entro le 13"
             }
           ]
         },
 
         {
-          "day": "6",
-          "containers": [
-            {
-              "type": "PLASTICA_LATTINE",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
-            }
-          ]
-        },
-        {
           "day": "7",
           "containers": [
             {
-              "type": "VERDE",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "CARTA",
+              "hoursRange": "svuotamento cassonetto dalle 12"
+            },
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "svuotamento cassonetto dalle 12"
             }
           ]
         }
@@ -106,19 +197,65 @@
     },
     {
       "name": "Zona 4",
-      "streets": "Via Roma, Corso Torino ecc",
+      "streets": "Via al Duca, via Alfieri di Sostegno, via Arduino, via Armosino, via Arri, via Baretti, via Baroncini, via Beatrice Di Savoia, via Berlinguer, via Bezzi, via Bianca d’Agliano, via Bistolfi, via Boccaccio, via Borsellino, via Bove, via Brovardi, via R. Bruno, via Buonarroti, via Caccia, via Camagni, via Canova, via Cellini, via Conte Verde, vicolo Conti, Vicolo Contratti, via Croce, via D’Acquisto, corso Dante (dai numeri 122/135), Piazzetta Della Gambina, via Don Marcoz, via Don Orione, via Europa Unita, via Falcone, via Foscolo, via Gandolfino Roreto, via Giovanni XXIII, via L. Goria, via Gozzano, via Guasti, via Macchiavelli, via Manzoni, via Monteverde, via Musso, via Nogaro, via Novellone, via Petrarca, via Petroselli, via Rabioglio, piazzetta Repubblica Partigiana, via Rosa, via Rotario, via Sanzio, vicolo Silva, via Tasso, via Torretta, via Valence, via V. Visconti, via Vecellio, via Vergano, via Virginia di Castiglione, via Vogliolo.",
       "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
       "weekCalendar":[
+        {
+          "day": "2",
+          "containers": [
+            {
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "CARTA",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "esposizione cassonetto su strada comunale entro le 13"
+            }
+          ]
+        },
+
         {
           "day": "5",
           "containers": [
             {
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
               "type": "INDIFFERENZIATO",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "hoursRange": "svuotamento cassonetto dalle 12"
+            },
+            {
+              "type": "VERDE",
+              "hoursRange": "esposizione cassonetto su strada comunale entro le 13"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zona 5",
+      "streets": "Via Albini, corso Alfieri (dai numeri 424/393), viale Al Santuario, via Atleti Azzurri Astigiani, via Baracca, via Bellini, via Benzi, piazzale Bixio, via Buozzi, vicolo Calderara, via Catalani, vicolo Coardi di Carpeneto, via Corridoni, via Corsi, via dei Fiammiferai, via Di Vittorio, via Donizetti, via Duca D’Aosta, via Duca degli Abruzzi, via Fantaguzzi, vicolo Fornaciai, via F.lli Lajolo, via Fregoli, via Garino Canina, via Gatti, via Giuntelli, via Graziani, via Invrea, corso Ivrea (fino ai numeri 125/90), via Lamberti, via Laretto, strada Laverdina, via Leoncavallo, piazza Lugano, via Maggiora Vergano, via Maina, piazzale Manina, via Monte Lungo, via Morando, via Moro, salita Morra, piazzetta N. S. Di Lourdes, via Oriani, Viale Partigiani, piazzale Penna, via Pergolesi, via Perosi, via Pertile, via Polledro, via Pollenzo, via Porta Romana, piazza Porta Torino, via Principe Amedeo, via Puccini, via Rambaldi, via Rivo Crosio, via Rocciamelone, via Rossino, via San Marco, via Sant’Anna, piazza Santa Caterina, corso Torino  (fino ai numeri 298/351), piazzetta Torretta, via Turati, piazza Vittorio Veneto, corso XXV Aprile, via Zandonai.",
+      "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+      "weekCalendar":[
+        {
+          "day": "3",
+          "containers": [
+            {
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
             },
             {
               "type": "CARTA",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "esposizione sacchetto su strada comunale entro le 13"
             }
           ]
         },
@@ -127,21 +264,101 @@
           "day": "6",
           "containers": [
             {
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "svuotamento cassonetto dalle 12"
+            },
+            {
+              "type": "VERDE",
+              "hoursRange": "esposizione cassonetto su strada comunale entro le 13"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zona 6",
+      "streets": "Via Alione, piazza Amendola, via Artom, via Baudoin, via Boito, via Lina Borgo, vicolo G. Bosia, via Camisola, via Campassi, corso Cavallotti, corso P. Chiesa, via Croce Verde, via Crova, via D’Annunzio, piazza L. Da Vinci, via dello Sport, via Dogliotti, Viale Don Bianco, via Don Gallo, via Don Milano, corso Don Minzoni, via Galimberti, corso Einaudi (dai numeri 156/80), via Fratelli Olivero, strada Falletti, via Fasciola, corso G. Ferraris, via Gabotto, via Gaeta, vicolo Galvani, via Gandhi, via Gavazza, via Gerbi, via Goito, via Govone, corso Gramsci, via Grassi, via Grilli, via Guttuari, via IX Reggimento Bersaglieri, via Lessona, piazza Marconi, corso Matteotti, piazza Medaglie D’Oro, vicolo Meucci, strada Moccagatta, via Sauro, via Omedè, via Pacinotti, via Paniati, via Pascoli  (dai numeri 19/32 a 25/48), via Piccinini, via Ratti, via Righi, via Robino, via San Francesco, piazza San Giuseppe, piazza San Rocco, via Torricelli, via Toti, via Urbani, via Ventura, via Viale, via Vigna.",
+      "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+      "weekCalendar":[
+        {
+          "day": "4",
+          "containers": [
+            {
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
+              "type": "CARTA",
+              "hoursRange": "svuotamento cassonetto dalle 13"
+            },
+            {
               "type": "PLASTICA_LATTINE",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "hoursRange": "esposizione sacchetto su strada comunale entro le 13"
             }
           ]
         },
+
         {
           "day": "7",
           "containers": [
             {
+              "type": "ORGANICO",
+              "hoursRange": "svuotamento cassonetto dalle 12"
+            },
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "svuotamento cassonetto dalle 12"
+            },
+            {
               "type": "VERDE",
-              "hoursRange": "Esposizione cassonetto su strada comunale entro le 12"
+              "hoursRange": "esposizione cassonetto su strada comunale entro le 12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Area Industriale",
+      "streets": "Via del Lavoro e via Maggiora",
+      "addressedTo": "Attività produttive",
+      "weekCalendar":[
+        {
+          "day": "2",
+          "containers": [
+            {
+              "type": "INDIFFERENZIATO",
+              "hoursRange": "esposizione su suolo pubblico dalle 7"
+            }
+          ]
+        },
+        {
+          "day": "3",
+          "containers": [
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "esposizione su suolo pubblico dalle 13"
+            }
+          ]
+        },
+        {
+          "day": "5",
+          "containers": [
+            {
+              "type": "CARTA",
+              "hoursRange": "esposizione su suolo pubblico dalle 13"
+            },
+            {
+              "type": "PLASTICA_LATTINE",
+              "hoursRange": "esposizione su suolo pubblico dalle 13"
             }
           ]
         }
       ]
     }
+
   ]
 }
