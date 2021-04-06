@@ -34,24 +34,29 @@
 Ecobot is a telegram bot that provides information about the separate collection calendar in Asti. It reads the ```data.json``` file which contains data of the calendar. This is an example:
 ```json
 {
-  "municipalityName": "Asti",
-  "areas":[
-      {
-        "name": "Zona 1",
-        "streets": "Via Roma, Corso Torino ecc",
-        "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
-        "areaCalendar":[
-            {
-              "day": "1",
-              "type": "ORGANICO"
-            },
-            {
-              "day": "2",
-              "type": "CARTA"
-            }
-          ]
-      }
-    ]
+  "name": "Zona 3",
+  "streets": "Largo Martiri della Liberazione, via Amico, via A. Garibaldi*, via Antica Certosa, via dell’Arazzeria, via Argentero, via Ariosto, via Arò, via Aubert, via Auna, via Badino, via Badoni, via Basta..",
+  "addressedTo": "Utenze domestiche, attività commerciali e artigiane, uffici",
+  "weekCalendar": [
+    {
+      "day": "4",
+      "containers": [
+        {
+          "type": "ORGANICO",
+          "hoursRange": "svuotamento cassonetto dalle 13"
+        },
+        {
+          "type": "INDIFFERENZIATO",
+          "hoursRange": "svuotamento cassonetto dalle 13"
+        },
+        {
+          "type": "VERDE",
+          "hoursRange": "esposizione cassonetto su strada comunale entro le 13"
+        }
+      ]
+    },
+    ....
+  ]
 }
 ```
 
